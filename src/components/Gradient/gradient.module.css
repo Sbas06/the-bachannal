@@ -1,0 +1,6 @@
+.gradient {
+  content: '';
+  width: 100%;
+  height: 2px;
+  background: var(--Gradient-The-bacchanal);
+}

@@ -39,6 +39,7 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --font-koulen: var(--koulen-font);
 }
 
 :root {
@@ -80,6 +81,7 @@
     #f5ec44,
     #279345
   );
+  --koulen-font: 'Koulen', sans-serif;
 }
 
 .dark {
@@ -127,6 +129,14 @@
 @font-face {
   font-family: 'Whitehella';
   src: url('/src/assets/fonts/Whitehella Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Koulen';
+  src: url('/src/assets/fonts/Koulen-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
