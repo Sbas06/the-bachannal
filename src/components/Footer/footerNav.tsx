@@ -24,7 +24,10 @@ export function FooterNav() {
   ];
 
   return (
-    <Gradient as='div' className='flex w-full items-center justify-between'>
+    <Gradient
+      as='div'
+      className='flex w-full items-center justify-between before:top-0'
+    >
       <NavigationMenu viewport={false}>
         <NavigationMenuList>
           {footerNavigation.map((item) => (

@@ -1,49 +1,15 @@
-'use client';
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from '@/components/ui/navigation-menu';
+import { NavMenu } from '@/components/NavBar/navMenu';
 import { BacchanalIcon } from '@/components/Icons/icons';
+import { Gradient } from '@/components/Gradient/gradient';
 
-const components: { title: string; href: string }[] = [
-  {
-    title: 'Menu',
-    href: '/menu',
-  },
-  {
-    title: 'Delivery Menu',
-    href: '/delivery-menu',
-  },
-  {
-    title: 'About Us',
-    href: '/about-us',
-  },
-];
-
-export function HeaderNav() {
+export function NavBar() {
   return (
-    <>
-      <NavigationMenu viewport={false}>
-        <NavigationMenuList>
-          {components.map((component) => (
-            <NavigationMenuItem key={component.title}>
-              <NavigationMenuLink
-                asChild
-                className={navigationMenuTriggerStyle()}
-              >
-                <a href={component.href}>{component.title}</a>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-          ))}
-        </NavigationMenuList>
-      </NavigationMenu>
-
-      <BacchanalIcon />
-    </>
+    <Gradient
+      as='header'
+      className='grid w-full grid-cols-3 items-center justify-items-center gap-x-10 p-[11px] before:bottom-px'
+    >
+      <NavMenu />
+      <BacchanalIcon width='90' height='70' />
+    </Gradient>
   );
 }
