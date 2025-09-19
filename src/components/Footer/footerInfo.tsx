@@ -19,9 +19,9 @@ export function FooterInfo() {
 
       <div className='flex flex-col justify-center'>
         <p className='font-koulen text-xl'>Cl. 29 #29-22, Guatape, Antioquia</p>
-        <small className='font-koulen flex items-center justify-center gap-x-3.5 text-xl'>
-          <PhoneIcon /> <p>+57 310 409 9074</p>
-        </small>
+        <address className='font-koulen flex items-center justify-center gap-x-3.5 text-xl'>
+          <PhoneIcon /> <a href='tel:+573104099074'>+57 310 409 9074</a>
+        </address>
       </div>
     </div>
   );

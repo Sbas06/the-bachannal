@@ -1,12 +1,11 @@
 import { FooterNav } from '@/components/Footer/footerNav';
 import { FooterInfo } from '@/components/Footer/footerInfo';
-import { Gradient } from '@/components/Gradient/gradient';
 
 export function Footer() {
   return (
-    <Gradient as='footer'>
+    <footer className='flex flex-col items-center justify-between text-white'>
       <FooterInfo />
       <FooterNav />
-    </Gradient>
+    </footer>
   );
 }

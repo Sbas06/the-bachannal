@@ -4,6 +4,7 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
 } from '@/components/ui/navigation-menu';
+import { Gradient } from '@/components/Gradient/gradient';
 
 export function FooterNav() {
   const date: number = new Date().getFullYear();
@@ -23,7 +24,7 @@ export function FooterNav() {
   ];
 
   return (
-    <div className='flex w-full items-center justify-between'>
+    <Gradient as='div' className='flex w-full items-center justify-between'>
       <NavigationMenu viewport={false}>
         <NavigationMenuList>
           {footerNavigation.map((item) => (
@@ -37,6 +38,6 @@ export function FooterNav() {
       </NavigationMenu>
 
       <p>&copy; {date} El Bacchanal, All right reserved</p>
-    </div>
+    </Gradient>
   );
 }
