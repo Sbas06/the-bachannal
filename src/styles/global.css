@@ -39,11 +39,12 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --font-koulen: var(--koulen-font);
 }
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
+  --background: #231f20;
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
@@ -80,6 +81,7 @@
     #f5ec44,
     #279345
   );
+  --koulen-font: 'Koulen', sans-serif;
 }
 
 .dark {
@@ -128,6 +130,14 @@
   src: url('/src/assets/fonts/Whitehella Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+}
+
+@font-face {
+  font-family: 'Koulen';
+  src: url('/src/assets/fonts/Koulen-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 @layer base {
