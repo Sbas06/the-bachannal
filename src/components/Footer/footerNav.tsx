@@ -26,10 +26,11 @@ export function FooterNav() {
   return (
     <Gradient
       as='div'
-      className='flex w-full items-center justify-between before:top-0'
+      className='flex w-full items-center justify-between px-20 py-8 before:top-0'
+      isAnimated
     >
       <NavigationMenu viewport={false}>
-        <NavigationMenuList>
+        <NavigationMenuList className='gap-x-[34px]'>
           {footerNavigation.map((item) => (
             <NavigationMenuItem key={item.name}>
               <NavigationMenuLink asChild>
