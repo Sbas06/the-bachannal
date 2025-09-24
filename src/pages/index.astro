@@ -1,12 +1,12 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import { NavBar } from '@/components/NavBar/navBar';
-import { Paradise } from '@/components/ColorfulParadise/colorfulParadise';
-import { Footer } from '@/components/Footer/footer';
+import Footer from '@/components/Footer/Footer.astro';
+import NavBar from '@/components/NavBar/NavBar.astro';
+import ColorfulParadise from '@/components/ColorfulParadise/ColorfulParadise.astro';
 ---
 
 <Layout>
   <NavBar />
-  <Paradise client:only='react' />
+  <ColorfulParadise />
   <Footer />
 </Layout>

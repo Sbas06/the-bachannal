@@ -1,0 +1,22 @@
+---
+import ColorfulVector from '@/components/ColorfulParadise/ColorfulVector.astro';
+import { paradiseMedia } from '@/lib/utils';
+import '@/components/ColorfulParadise/colorfulParadise.css';
+---
+
+<section class='relative pt-20 pb-16'>
+  <ColorfulVector />
+
+  <div class='flex flex-col items-center gap-y-28 text-6xl'>
+    <h6 class='font-koulen'>A colorful paradise</h6>
+    <div
+      class='grid w-[85%] grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-x-[9px]'
+    >
+      {
+        paradiseMedia.map((item) => (
+          <img src={item.url} alt={item.alt} width={300} height={456} />
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,43 @@
+---
+import Icons from '@/components/Icons/Icons.astro';
+import { Image } from 'astro:assets';
+---
+
+<div class='flex flex-col items-center gap-y-7'>
+  <a href='/'>
+    <Image
+      src='/bacchanal-icon-image.webp'
+      width={170}
+      height={140}
+      alt='Logo for El Bacchanal, a bar in Guatapé, Colombia, featuring a red, yellow, and green gradient background, a firecracker icon, a cocktail glass, and the Instagram handle @el_bacchanal.'
+    />
+  </a>
+
+  <a
+    href='https://www.instagram.com/el_bacchanal/'
+    target='_blank'
+    rel='noopener noreferrer'
+    aria-label='Instagram @el_bacchanal'
+  >
+    <Icons name='instagram' />
+    <span class='sr-only'>Opens in a new tab</span>
+  </a>
+
+  <div class='flex flex-col justify-center'>
+    <a
+      href='https://maps.app.goo.gl/5x7Qa3XiknXAHqXV7'
+      target='_blank'
+      rel='noopener noreferrer'
+      class='font-koulen text-xl'
+    >
+      <p>Cl. 29 #29-22, Guatape, Antioquia</p>
+      <span class='sr-only'>Opens in a new tab</span>
+    </a>
+    <address
+      class='bacchanal-phone font-koulen flex items-center justify-center gap-x-3.5 text-xl not-italic'
+    >
+      <Icons name='phone' />
+      <a href='tel:+573104099074'>+57 310 409 9074</a>
+    </address>
+  </div>
+</div>
