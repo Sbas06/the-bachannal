@@ -1,0 +1,67 @@
+.left {
+  left: 10%;
+  bottom: 5%;
+  transform: translate(-17%, -30%);
+  z-index: 1;
+}
+
+.right {
+  right: 5%;
+  bottom: 5%;
+  transform: translate(-10%, -30%);
+  z-index: 1;
+}
+
+.center {
+  left: 50%;
+  bottom: 5%;
+  transform: translate(-50%, -30%);
+  z-index: 1;
+}
+
+.whitehella-style span {
+  letter-spacing: normal;
+  font-size: 50px;
+  line-height: 0;
+  position: relative;
+  z-index: 0;
+}
+
+.whitehella-style p {
+  font: 400 50px var(--font-whitehella);
+  background: var(--Gradient-The-bacchanal);
+  color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 2.5;
+  text-align: center;
+  position: relative;
+  bottom: 10px;
+  z-index: 1;
+}
+
+.swiper-pagination.pagLeft {
+  left: 3%;
+  bottom: 3%;
+  transform: translate(-10%, -40%);
+}
+
+.swiper-pagination.pagRight {
+  right: 3%;
+  left: unset;
+  bottom: 5%;
+  transform: translate(-5%, -10%);
+}
+
+.swiper-pagination .swiper-pagination-bullet {
+  border: 1px solid #d9d9d9;
+  opacity: 1;
+  background: transparent;
+  width: 10px;
+  height: 10px;
+}
+
+.swiper-pagination .swiper-pagination-bullet-active {
+  background: #d9d9d9;
+}

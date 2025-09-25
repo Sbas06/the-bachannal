@@ -40,5 +40,27 @@ export default [
     },
   },
 
+  {
+    files: ['**/lib/**/*.{js,ts}', '**/scripts/**/*.{js,ts}'],
+    languageOptions: {
+      parser: tsParser,
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        document: 'readonly',
+        window: 'readonly',
+        navigator: 'readonly',
+      },
+    },
+    plugins: {
+      '@typescript-eslint': tsPlugin,
+    },
+    rules: {
+      '@typescript-eslint/no-unused-vars': 'error',
+      '@typescript-eslint/no-explicit-any': 'error',
+      'prefer-const': 'warn',
+    },
+  },
+
   prettier,
 ];

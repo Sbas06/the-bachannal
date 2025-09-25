@@ -1,0 +1,85 @@
+---
+import { Image } from 'astro:assets';
+import type { SliderContent } from '@/types/types';
+import '@/components/SliderBanner/sliderBanner.css';
+
+const {
+  isSlider,
+  content,
+  contentPosition,
+  isWhitehella,
+  imageLoading,
+  paginationPosition,
+}: {
+  isSlider?: boolean;
+  contentPosition?: string;
+  content?: SliderContent;
+  isWhitehella?: boolean;
+  imageLoading?: 'eager' | 'lazy';
+  paginationPosition?: 'pagLeft' | 'pagRight';
+} = Astro.props;
+---
+
+<section class='overflow-hidden'>
+  {
+    isSlider ? (
+      <div class='swiper-banner relative'>
+        <div class='swiper-wrapper'>
+          {content?.slider.map((item) => (
+            <div class='swiper-slide !h-auto'>
+              <Image
+                class='h-full w-full'
+                src={item.image}
+                alt={item.alt}
+                width={1920}
+                height={911}
+                loading={imageLoading}
+              />
+            </div>
+          ))}
+        </div>
+        <div class={`${paginationPosition} swiper-pagination !w-fit`} />
+        <div
+          class:list={[
+            contentPosition,
+            { 'whitehella-style': isWhitehella },
+            'font-koulen',
+            'absolute',
+          ]}
+        >
+          <span class='text-2xl leading-0 tracking-[13.75px]'>
+            {content?.bannerSpan}
+          </span>
+          <p class='text-chart-6 text-[75px] leading-[1]'>
+            {content?.bannerTitle}
+          </p>
+        </div>
+      </div>
+    ) : (
+      <div class='relative'>
+        <Image
+          class={'h-auto w-full'}
+          src={'/single-slider.webp'}
+          alt=''
+          width={1920}
+          height={911}
+          loading={imageLoading}
+        />
+
+        <div
+          class:list={[
+            contentPosition,
+            { 'whitehella-style': isWhitehella },
+            'font-koulen',
+            'absolute',
+          ]}
+        >
+          <span class='text-2xl leading-0 tracking-[13.75px]'>
+            Guatape-Colombia
+          </span>
+          <p class='text-chart-6 text-[75px] leading-[1]'>El Bacchanal</p>
+        </div>
+      </div>
+    )
+  }
+</section>

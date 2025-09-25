@@ -1,0 +1,28 @@
+---
+const components: { title: string; href: string }[] = [
+  {
+    title: 'Menu',
+    href: '/menu',
+  },
+  {
+    title: 'Delivery Menu',
+    href: '/delivery-menu',
+  },
+  {
+    title: 'About Us',
+    href: '/about-us',
+  },
+];
+---
+
+<nav>
+  <ul class='flex gap-x-[34px]'>
+    {
+      components.map((component) => (
+        <li>
+          <a href={component.href}>{component.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>

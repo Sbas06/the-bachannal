@@ -1,0 +1,39 @@
+---
+import Gradient from '@/components/Gradient/Gradient.astro';
+
+const date: number = new Date().getFullYear();
+const footerNavigation: { name: string; href: string }[] = [
+  {
+    name: 'Menu',
+    href: '/menu',
+  },
+  {
+    name: 'Order now',
+    href: '/delivery-menu',
+  },
+  {
+    name: 'About Us',
+    href: '/about-us',
+  },
+];
+---
+
+<Gradient
+  as='div'
+  containerClass='flex w-full items-center justify-between px-20 py-8 before:top-0'
+  isAnimated
+>
+  <nav>
+    <ul class='flex gap-x-[34px]'>
+      {
+        footerNavigation.map((item) => (
+          <li>
+            <a href={item.href}>{item.name}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+
+  <p>&copy; {date} El Bacchanal, All right reserved</p>
+</Gradient>
