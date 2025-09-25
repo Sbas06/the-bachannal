@@ -1,6 +1,8 @@
 ---
 import ColorfulVector from '@/components/ColorfulParadise/ColorfulVector.astro';
 import { paradiseMedia } from '@/lib/utils';
+import { Image } from 'astro:assets';
+
 import '@/components/ColorfulParadise/colorfulParadise.css';
 ---
 
@@ -14,7 +16,7 @@ import '@/components/ColorfulParadise/colorfulParadise.css';
     >
       {
         paradiseMedia.map((item) => (
-          <img src={item.url} alt={item.alt} width={300} height={456} />
+          <Image src={item.url} alt={item.alt} width={300} height={456} />
         ))
       }
     </div>
