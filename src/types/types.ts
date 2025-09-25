@@ -1,5 +1,10 @@
+import type { ImageMetadata } from "astro";
+
 export interface SliderContent {
-  slider: { image: string; alt: string }[];
-  bannerSpan: string;
-  bannerTitle: string;
+  bannerSpan?: string;
+  bannerTitle?: string;
+  slider?: { image: ImageMetadata; alt: string }[];
+  image?: ImageMetadata;
+  alt?: string;
 }
+

@@ -1,12 +1,13 @@
 ---
 import Icons from '@/components/Icons/Icons.astro';
 import { Image } from 'astro:assets';
+import BacchanalLogo from '@/assets/images/bacchanal-icon-image.webp';
 ---
 
 <div class='flex flex-col items-center gap-y-7'>
   <a href='/'>
     <Image
-      src='/bacchanal-icon-image.webp'
+      src={BacchanalLogo}
       width={170}
       height={140}
       alt='Logo for El Bacchanal, a bar in Guatapé, Colombia, featuring a red, yellow, and green gradient background, a firecracker icon, a cocktail glass, and the Instagram handle @el_bacchanal.'
