@@ -1,0 +1,125 @@
+---
+import { Image } from 'astro:assets';
+import { imageMetadata } from 'astro/assets/utils';
+// Import the images
+import img1 from '../../assets/images/El-bacchanal-Slider-Image1.webp';
+import img2 from '../../assets/images/El-bacchanal-Slider-Image2.webp';
+import img3 from '../../assets/images/El-bacchanal-Slider-Image3.webp';
+import img4 from '../../assets/images/El-bacchanal-Slider-Image4.webp';
+import imginstagram1 from '../../assets/images/El-bacchanal-Slider-instagram-Image1.webp';
+import imginstagram2 from '../../assets/images/El-bacchanal-Slider-instagram-Image2.webp';
+import imginstagram3 from '../../assets/images/El-bacchanal-Slider-instagram-Image3.webp';
+import imginstagram4 from '../../assets/images/El-bacchanal-Slider-instagram-Image4.webp';
+import imginstagram5 from '../../assets/images/El-bacchanal-Slider-instagram-Image5.webp';
+import imginstagram6 from '../../assets/images/El-bacchanal-Slider-instagram-Image6.webp';
+import imginstagram7 from '../../assets/images/El-bacchanal-Slider-instagram-Image7.webp';
+import './slider.css';
+
+// Defines the props interface (TypeScript only)
+export interface SliderProps {
+  variant?: 'default' | 'instagram';
+  spaceBetween?: number;
+  showHeader?: boolean;
+  speed?: number;
+  customImages?: string[];
+}
+
+// Default image settings
+const defaultSlides = [img1, img2, img3, img4];
+const instagramSlides = [
+  imginstagram1, imginstagram2, imginstagram3,
+  imginstagram4, imginstagram5, imginstagram6, imginstagram7
+];
+
+// Function to get the images
+const getSlides = (variant: string, customImages: string[] | undefined) => {
+  if (customImages) return customImages;
+  return variant === 'instagram' ? instagramSlides : defaultSlides;
+};
+
+// Correct access to props:
+const { variant, spaceBetween, showHeader, speed, customImages } = Astro.props;
+const slides = getSlides(variant, customImages);
+---
+
+<section class={`slider-container ${variant}`}>
+  {showHeader && (
+    <header class="leading-loose text-center text-white">
+      <h1 class="text-4xl title-instagram">FOLLOW Us ON SOCIAL</h1>
+      <p class="text-6xl title-follow-us">@el_bacchanal</p>
+    </header>
+  )}
+
+  <div class="my-slider" id="slider-swiper">
+    <div class="swiper-wrapper">
+      {slides.map((imageMetadata, idx) => (
+  <div class="swiper-slide">
+    <Image
+      src={imageMetadata}
+      alt={`Slide ${idx + 1}`}
+      class="slider-img"
+      loading="lazy"
+    />
+  </div>
+))}
+    </div>
+  </div>
+
+ <!-- Script to initialize Swiper (executed on client) -->
+  <script>
+    import Swiper from 'swiper';
+    import { Autoplay, FreeMode } from 'swiper/modules';
+    import 'swiper/css';
+    import 'swiper/css/free-mode';
+    import 'swiper/css/autoplay';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize Swiper with the prop values
+      new Swiper('#slider-swiper', {
+        loop: true,
+        modules: [Autoplay, FreeMode],
+        spaceBetween: 12,
+        slidesPerView: 1.2,
+        freeMode: {
+          enabled: true,
+          sticky: false,
+          momentum: false,
+        },
+        autoplay: {
+          delay: 0,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: false,
+        },
+        speed: 4000,
+        breakpoints: {
+          640: { slidesPerView: 1 },
+          768: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 },
+          1640: { slidesPerView: 4 }
+        }
+      });
+
+      // Animations with Intersection Observer
+      const sliderRef = document.querySelector('.slider-container');
+      if (sliderRef) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                const slides = document.querySelectorAll('.swiper-slide img');
+                slides.forEach((slide, index) => {
+                  setTimeout(() => {
+                    slide.classList.add('appearing');
+                  }, 100 * index);
+                });
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+        );
+        observer.observe(sliderRef);
+      }
+    });
+  </script>
+</section>

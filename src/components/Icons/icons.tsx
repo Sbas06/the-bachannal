@@ -2220,3 +2220,32 @@ export const PhoneIcon = () => {
     </svg>
   );
 };
+
+export const CursorIcon = () => {
+  return (
+    <svg
+      className="my-slider"
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+    >
+      <circle
+        cx="8"
+        cy="8"
+        r="7"
+        fill="#E5E7EB"
+        stroke="#6B7280"
+        strokeWidth="1.5"
+      />
+      <path
+        d="M5.5 7.5L7.5 9.5L9.5 7.5M9.5 8.5L7.5 10.5L5.5 8.5"
+        stroke="white"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};

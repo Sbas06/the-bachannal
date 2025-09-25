@@ -1,0 +1,72 @@
+/* Traditional animations are used */
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slider-container {
+    overflow: hidden;
+    margin: 2rem auto
+}
+
+.slider-img {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: transform 0.9s ease;
+}
+
+.slider-img :hover {
+    transform: scale(1.05);
+}
+
+
+.slider-img.appearing {
+    animation: appear 1.5s ease forwards;
+}
+
+/* Styles for the slider */
+.my-slider:hover {
+    cursor: url('./cursor-slider.png') 8 8, auto;
+}
+
+.slider-fallback {
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+    padding: 20px 0;
+}
+
+.image-container {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.3s ease;
+}
+
+.slider-img {
+    width: 100%;
+    height: 508px;
+    overflow: hidden;
+    position: relative;
+}
+
+.title-instagram {
+    font-family: 'Koulen';
+    font-weight: bold;
+}
+
+.title-follow-us {
+    color: #FFF;
+    font-family: 'Koulen';
+    font-size: 60px;
+    font-weight: 400;
+    line-height: 171%;
+}

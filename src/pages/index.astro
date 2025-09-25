@@ -2,9 +2,12 @@
 import Layout from '@/layouts/Layout.astro';
 import { NavBar } from '@/components/NavBar/navBar';
 import { Footer } from '@/components/Footer/footer';
+import Slider from '../components/Slider/slider.astro';
 ---
 
 <Layout>
   <NavBar />
+    <Slider />
+    <Slider variant="instagram" spaceBetween={3} showHeader={true} />
   <Footer />
 </Layout>
