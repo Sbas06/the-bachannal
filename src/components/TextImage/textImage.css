@@ -1,0 +1,99 @@
+.waves {
+  position: absolute;
+  bottom: 0;
+  right: calc(50vw - 700px);
+  z-index: -10;
+  width: 600px;
+  height: 100%;
+}
+
+svg {
+  animation: container-fade-in 0.8s ease-out;
+}
+
+.animate-wave-1 {
+  opacity: 0;
+  transform-origin: 300px 300px;
+  animation: wave-pulse 3s ease-out infinite;
+  animation-delay: 0s;
+}
+
+.animate-wave-2 {
+  opacity: 0;
+  transform-origin: 300px 300px;
+  animation: wave-pulse 3s ease-out infinite;
+  animation-delay: 0.6s;
+}
+
+.animate-wave-3 {
+  opacity: 0;
+  transform-origin: 300px 300px;
+  animation: wave-pulse 3s ease-out infinite;
+  animation-delay: 1.2s;
+}
+
+.animate-wave-4 {
+  opacity: 0;
+  transform-origin: 300px 300px;
+  animation: wave-pulse 3s ease-out infinite;
+  animation-delay: 1.8s;
+}
+
+.animate-wave-5 {
+  opacity: 0;
+  transform-origin: 300px 300px;
+  animation: wave-pulse 3s ease-out infinite;
+  animation-delay: 2.4s;
+}
+
+@keyframes wave-pulse {
+  0% {
+    r: 30;
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  5% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    r: 300;
+    opacity: 0;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes container-fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .waves {
+    right: calc(50vw - 490px);
+    width: 480px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .waves {
+    right: calc(50vw - 530px);
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .waves {
+    right: calc(50vw - 540px);
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .waves {
+    right: calc(50vw - 660px);
+    width: 600px;
+  }
+}

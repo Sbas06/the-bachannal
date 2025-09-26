@@ -8,3 +8,13 @@ export interface SliderContent {
   alt?: string;
 }
 
+export interface TextImage {
+  image: ImageMetadata;
+  width: number;
+  height: number;
+  alt: string;
+  title: string;
+  highlightText: string;
+  complementInfo: string;
+}
+
