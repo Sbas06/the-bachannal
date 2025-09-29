@@ -20,15 +20,15 @@ const {
 } = Astro.props;
 ---
 
-<section class='overflow-hidden'>
+<section class='h-[100dvh] overflow-hidden'>
   {
     isSlider ? (
-      <div class='swiper-banner relative'>
+      <div class='swiper-banner relative h-full'>
         <div class='swiper-wrapper'>
-          {content?.slider.map((item) => (
-            <div class='swiper-slide !h-auto'>
+          {content?.slider?.map((item) => (
+            <div class='swiper-slide !h-full'>
               <Image
-                class='h-full w-full'
+                class='h-full w-full object-cover'
                 src={item.image}
                 alt={item.alt}
                 width={1920}
@@ -56,15 +56,17 @@ const {
         </div>
       </div>
     ) : (
-      <div class='relative'>
-        <Image
-          class={'h-auto w-full'}
-          src={'/single-slider.webp'}
-          alt=''
-          width={1920}
-          height={911}
-          loading={imageLoading}
-        />
+      <div class='relative h-full'>
+        {content?.image && (
+          <Image
+            class={'h-full w-full object-cover'}
+            src={content.image}
+            alt={content.alt ?? ''}
+            width={1920}
+            height={911}
+            loading={imageLoading}
+          />
+        )}
 
         <div
           class:list={[

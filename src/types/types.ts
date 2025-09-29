@@ -1,9 +1,11 @@
 import type { ImageMetadata } from 'astro';
 
 export interface SliderContent {
-  slider: { image: string; alt: string }[];
-  bannerSpan: string;
-  bannerTitle: string;
+  bannerSpan?: string;
+  bannerTitle?: string;
+  slider?: { image: ImageMetadata; alt: string }[];
+  image?: ImageMetadata;
+  alt?: string;
 }
 export interface SliderImage {
   image: string  | ImageMetadata; 
@@ -17,3 +19,14 @@ export interface SliderProps {
   titleFollowUs?: string;
   titleInstagram?: string;
 }
+
+export interface TextImage {
+  image: ImageMetadata;
+  width: number;
+  height: number;
+  alt: string;
+  title: string;
+  highlightText: string;
+  complementInfo: string;
+}
+
