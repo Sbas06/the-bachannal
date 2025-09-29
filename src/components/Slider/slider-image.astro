@@ -1,0 +1,57 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import type { SliderProps } from '@/types/types';
+import '@/components/SliderBanner/sliderBanner.css';
+import './slider.css';
+
+const {
+  content,
+  imageLoading,
+}: {
+  content?: SliderProps;
+  imageLoading?: 'eager' | 'lazy';
+} = Astro.props;
+---
+
+<section class={`slider-container overflow-hidden`}>
+  {content?.titleFollowUs && content?.titleInstagram ? (
+    <header class="slider-instagram-header leading-loose text-center text-white pointer-events-none">
+      <h1 class="text-4xl title-instagram">{content.titleFollowUs}</h1>
+      <p class="text-6xl title-follow-us">{content.titleInstagram}</p>
+    </header>
+  ) : null}
+  <div class="my-slider" id="slider-swiper" data-space-between={content?.spaceBetween ?? 12}>
+    <div class="swiper-wrapper">
+      {content?.customImages.map((item) => {
+  const isMeta = typeof item.image === 'object' && item.image !== null && 'src' in item.image;
+
+  return (
+    <div class='swiper-slide !h-auto'>
+      {isMeta ? (
+        // item.image is ImageMetadata -> we pass it directly (cast)
+        <Image
+          class='h-full w-full'
+          src={item.image as ImageMetadata}
+          alt={item.alt ?? ''}
+          width={301}
+          height={456}
+          loading={imageLoading}
+        />
+      ) : (
+        // is string -> pass it as such
+        <Image
+          class='h-full w-full'
+          src={item.image as string}
+          alt={item.alt ?? ''}
+          width={301}
+          height={456}
+          loading={imageLoading}
+        />
+      )}
+    </div>
+  );
+      })}
+    </div>
+  </div>
+</section>
