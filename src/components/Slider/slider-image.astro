@@ -2,19 +2,33 @@
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import type { SliderProps } from '@/types/types';
+import Button from '@/components/Button/Button.astro';
 import '@/components/SliderBanner/sliderBanner.css';
 import './slider.css';
 
 const {
+  id,
   content,
   imageLoading,
+
+  variant,
+  redirectTo,
+  buttonText,
+  outWeb,
 }: {
+  id?: string;
   content?: SliderProps;
   imageLoading?: 'eager' | 'lazy';
+  variant?: string;
+  redirectTo?: string;
+  buttonText?: string;
+  outWeb?: boolean;
 } = Astro.props;
 ---
 
-<section class={`slider-container overflow-hidden`}>
+<section
+  class={`slider-container overflow-hidden flex flex-col justify-center gap-y-11 h-[100dvh] ${variant}`}
+>
   {
     content?.titleFollowUs && content?.titleInstagram ? (
       <header class='slider-instagram-header pointer-events-none text-center leading-loose text-white'>
@@ -25,7 +39,7 @@ const {
   }
   <div
     class='my-slider'
-    id='slider-swiper'
+    id={id}
     data-space-between={content?.spaceBetween ?? 12}
   >
     <div class='swiper-wrapper'>
@@ -37,11 +51,10 @@ const {
             'src' in item.image;
 
           return (
-            <div class='swiper-slide !h-auto'>
+            <div class='swiper-slide max-h-[630px]'>
               {isMeta ? (
-                // item.image is ImageMetadata -> we pass it directly (cast)
                 <Image
-                  class='h-full w-full'
+                  class='h-full w-full object-cover'
                   src={item.image as ImageMetadata}
                   alt={item.alt ?? ''}
                   width={301}
@@ -49,7 +62,6 @@ const {
                   loading={imageLoading}
                 />
               ) : (
-                // is string -> pass it as such
                 <Image
                   class='h-full w-full'
                   src={item.image as string}
@@ -65,4 +77,6 @@ const {
       }
     </div>
   </div>
+
+  <Button text={buttonText} href={redirectTo} isOutWeb={outWeb} />
 </section>

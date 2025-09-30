@@ -1,0 +1,45 @@
+.circle {
+  background-color: #ffffff;
+  animation: pulse 2s ease-in-out infinite;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  box-shadow: 0px 0px 1px 1px #0000001a;
+}
+
+.location {
+  animation: bounce 2s ease-in-out infinite;
+}
+
+.swiper-findus .swiper-pagination .swiper-pagination-bullet {
+  border-radius: 0;
+  background: #d9d9d9;
+  width: 28px;
+  height: 2px;
+  border: none;
+}
+
+.swiper-findus .swiper-pagination .swiper-pagination-bullet-active {
+  background: #000;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0px #ffffff29;
+  }
+  100% {
+    box-shadow: 0 0 0 20px #00000000;
+  }
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

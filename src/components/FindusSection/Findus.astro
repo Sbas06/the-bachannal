@@ -1,0 +1,111 @@
+---
+import { Image } from 'astro:assets';
+import Button from '@/components/Button/Button.astro';
+import MainIcon from '@/assets/images/bacchanal-icon-image.webp';
+import MapSvg from '@/components/FindusSection/MapSvg.astro';
+
+import { paradiseMedia } from '@/lib/utils';
+import '@/components/FindusSection/findUsSection.css';
+---
+
+<section class='flex h-[100dvh] items-center justify-center'>
+  <div class='relative'>
+    <MapSvg />
+
+    <div
+      class='location-container absolute right-[20%] bottom-[5%] flex translate-x-[-48%] translate-y-[-20%] cursor-pointer flex-col items-center justify-center gap-y-5'
+    >
+      <div
+        class='location flex w-fit flex-col items-center justify-center gap-y-1.5'
+      >
+        <div
+          class='flex h-[90px] w-[90px] items-center justify-center rounded-[50%] bg-[#D9D9D9]'
+        >
+          <Image
+            src={MainIcon}
+            alt='Logo for El Bacchanal, a bar in Guatapé, Colombia, featuring a red, yellow, and green gradient background, a firecracker icon, a cocktail glass, and the Instagram handle @el_bacchanal.'
+            width={90}
+            height={90}
+            class='flex'
+          />
+        </div>
+
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          width='27'
+          height='21'
+          viewBox='0 0 27 21'
+          fill='none'
+        >
+          <path
+            d='M13.8194 20.7011L0.357786 0.32507L26.6105 0.466506L13.8194 20.7011Z'
+            fill='#D9D9D9'></path>
+        </svg>
+      </div>
+
+      <div class='circle'></div>
+    </div>
+  </div>
+  <div class='flex flex-col items-center gap-y-[50px]'>
+    <h3 class='text-center'>
+      <span class='font-koulen text-[40px]'>Find Us Near</span>
+      <p
+        class='font-whitehella text-gradient-bacchanal px-5 text-[50px] leading-[2.5]'
+      >
+        the main Park Guatapé
+      </p>
+    </h3>
+
+    <p class='text-pertty max-w-[542px] text-center'>
+      The vibrant restaurant El Bacchanal is conveniently located just a
+      2-minute walk (150 meters) from Guatapé's iconic Nuestra Señora del Carmen
+      Church and the main square, making it easy to find.
+    </p>
+
+    <Button
+      text='Find Us'
+      href='https://maps.app.goo.gl/5x7Qa3XiknXAHqXV7'
+      isOutWeb
+    />
+  </div>
+
+  <div
+    class='slider-showcase pointer-events-none invisible absolute left-0 -translate-x-full -rotate-12 bg-white px-3 pt-3 pb-[70px] transition-all duration-500 ease-in-out'
+  >
+    <div
+      class='swiper-findus relative max-h-[465px] max-w-[400px] overflow-hidden'
+    >
+      <div class='swiper-wrapper'>
+        {
+          paradiseMedia.map((item) => (
+            <div class='swiper-slide'>
+              <Image src={item.url} width={400} height={465} alt={item.alt} />
+            </div>
+          ))
+        }
+      </div>
+      <div class='swiper-pagination'></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const locationContainer = document.querySelector('.location-container');
+    const sliderShowcase = document.querySelector('.slider-showcase');
+
+    locationContainer?.addEventListener('mouseenter', () => {
+      sliderShowcase?.classList.remove('invisible');
+      sliderShowcase?.classList.remove('-translate-x-full');
+      sliderShowcase?.classList.remove('-rotate-12');
+    });
+
+    locationContainer?.addEventListener('mouseleave', () => {
+      setTimeout(() => {
+        sliderShowcase?.classList.add('invisible');
+        sliderShowcase?.classList.add('-translate-x-full');
+        sliderShowcase?.classList.add('-rotate-12');
+      }, 2000);
+    });
+  });
+</script>

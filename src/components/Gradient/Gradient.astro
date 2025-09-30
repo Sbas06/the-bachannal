@@ -1,10 +1,15 @@
 ---
 import '@/components/Gradient/gradient.css';
-const { containerClass, as: Component = 'div', isAnimated } = Astro.props;
+const {
+  containerClass,
+  as: Component = 'div',
+  isAnimated,
+  hasGradient,
+} = Astro.props;
 ---
 
 <Component
-  class={`relative ${containerClass} ${isAnimated ? 'animate-gradient' : 'gradient'}`}
+  class={`relative ${containerClass} ${hasGradient ? (isAnimated ? 'animate-gradient' : 'gradient') : ''}`}
 >
   <slot />
 </Component>

@@ -10,6 +10,7 @@ const {
   isWhitehella,
   imageLoading,
   paginationPosition,
+  id,
 }: {
   isSlider?: boolean;
   contentPosition?: string;
@@ -17,13 +18,14 @@ const {
   isWhitehella?: boolean;
   imageLoading?: 'eager' | 'lazy';
   paginationPosition?: 'pagLeft' | 'pagRight';
+  id?: string;
 } = Astro.props;
 ---
 
 <section class='h-[100dvh] overflow-hidden'>
   {
     isSlider ? (
-      <div class='swiper-banner relative h-full'>
+      <div class='swiper-banner relative h-full' id={id}>
         <div class='swiper-wrapper'>
           {content?.slider?.map((item) => (
             <div class='swiper-slide !h-full'>
@@ -56,7 +58,7 @@ const {
         </div>
       </div>
     ) : (
-      <div class='relative h-full'>
+      <div class='relative h-full' id={id}>
         {content?.image && (
           <Image
             class={'h-full w-full object-cover'}

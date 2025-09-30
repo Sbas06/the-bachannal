@@ -2,15 +2,24 @@
 import { Image } from 'astro:assets';
 import '@/components/TextImage/textImage.css';
 import type { TextImage } from '@/types/types';
+import Gradient from '@/components/Gradient/Gradient.astro';
 
 const {
   direction,
   content,
-}: { direction?: 'flex-row' | 'flex-row-reverse'; content?: TextImage } =
-  Astro.props;
+  hasGradient,
+}: {
+  direction?: 'flex-row' | 'flex-row-reverse';
+  content?: TextImage;
+  hasGradient?: boolean;
+} = Astro.props;
 ---
 
-<section class='relative flex h-[100dvh] justify-center'>
+<Gradient
+  as='section'
+  containerClass='relative flex h-[100dvh] justify-center'
+  hasGradient={hasGradient}
+>
   <div
     class={`flex ${direction} items-center justify-center xl:gap-x-20 2xl:gap-x-28`}
   >
@@ -103,4 +112,4 @@ const {
       stroke-width='0.3'
       class='animate-wave-5'></circle>
   </svg>
-</section>
+</Gradient>

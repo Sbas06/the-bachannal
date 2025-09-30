@@ -6,6 +6,7 @@ import NavBar from '@/components/NavBar/NavBar.astro';
 import ColorfulParadise from '@/components/ColorfulParadise/ColorfulParadise.astro';
 import SliderBanner from '@/components/SliderBanner/SliderBanner.astro';
 import TextImage from '@/components/TextImage/TextImage.astro';
+import FindusSection from '@/components/FindusSection/FindusSection.astro';
 
 import {
   topSliderContent,
@@ -29,15 +30,35 @@ import {
     contentPosition='right'
     imageLoading='eager'
     paginationPosition='pagLeft'
+    id='upper-slider-banner'
   />
   <TextImage direction='flex-row' content={textImageBacchanalMean} />
-  <SliderImage content={sliderContent} variant='default' />
-  <TextImage direction='flex-row-reverse' content={textImageBacchanalStory} />
-  <SliderImage content={sliderInstagramContent} variant='instagram-slider' />
+  <SliderImage
+    id='instagram-slider-top'
+    content={sliderContent}
+    variant='default'
+    redirectTo='/delivery-menu'
+    buttonText='Discover our Menu'
+  />
+  <TextImage
+    direction='flex-row-reverse'
+    content={textImageBacchanalStory}
+    hasGradient
+  />
   <SliderBanner
     content={singleBanner}
     contentPosition='left'
     imageLoading='lazy'
+    id='single-slider-banner'
+  />
+  <FindusSection />
+  <SliderImage
+    id='instagram-slider-bottom'
+    content={sliderInstagramContent}
+    variant='instagram-slider'
+    redirectTo='https://www.instagram.com/el_bacchanal/'
+    buttonText='Follow Us'
+    outWeb
   />
   <SliderBanner
     isSlider
@@ -46,6 +67,7 @@ import {
     isWhitehella
     imageLoading='lazy'
     paginationPosition='pagRight'
+    id='bottom-slider-banner'
   />
   <ColorfulParadise />
   <Footer />

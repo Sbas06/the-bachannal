@@ -1,0 +1,38 @@
+---
+import Icons from '@/components/Icons/Icons.astro';
+
+const {
+  text,
+  href,
+  isOutWeb,
+}: { text?: string; href?: string; isOutWeb?: boolean } = Astro.props;
+---
+
+{
+  isOutWeb ? (
+    <a
+      class='group relative flex w-full max-w-[227px] cursor-pointer items-center justify-center gap-x-2.5 self-center overflow-hidden border border-white bg-[#FFFFFF33] p-2.5 transition-all duration-700 ease-in-out hover:scale-105'
+      href={href}
+      target='_blank'
+      rel='noopener noreferrer'
+    >
+      {text}
+
+      <div class='transition-transfrom absolute inset-0 w-full -translate-x-full bg-gradient-to-r from-transparent via-[#FFFFFF33] to-transparent duration-700 ease-in-out group-hover:translate-x-full' />
+
+      <Icons name='right-arrow' />
+    </a>
+  ) : (
+    <a
+      class='group relative flex w-full max-w-[227px] cursor-pointer items-center justify-center gap-x-2.5 self-center overflow-hidden border border-white bg-[#FFFFFF33] p-2.5 transition-all duration-700 ease-in-out hover:scale-105'
+      href={href}
+      target='_self'
+    >
+      {text}
+
+      <div class='transition-transfrom absolute inset-0 w-full -translate-x-full bg-gradient-to-r from-transparent via-[#FFFFFF33] to-transparent duration-700 ease-in-out group-hover:translate-x-full' />
+
+      <Icons name='right-arrow' />
+    </a>
+  )
+}
