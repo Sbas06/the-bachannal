@@ -1,0 +1,140 @@
+/* Animaciones con Lenis */
+
+/* Clase base para elementos que se animan al hacer scroll */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform, opacity;
+}
+
+/* Estado animado */
+.animate-on-scroll.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Variaciones de animación */
+.animate-fade-up {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.animate-fade-up.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-fade-left {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.animate-fade-left.animate-in {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.animate-fade-right {
+  opacity: 0;
+  transform: translateX(60px);
+  transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.animate-fade-right.animate-in {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.animate-scale {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.animate-scale.animate-in {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Animaciones con delay para efectos escalonados */
+.animate-delay-100 {
+  transition-delay: 0.1s;
+}
+.animate-delay-200 {
+  transition-delay: 0.2s;
+}
+.animate-delay-300 {
+  transition-delay: 0.3s;
+}
+.animate-delay-400 {
+  transition-delay: 0.4s;
+}
+.animate-delay-500 {
+  transition-delay: 0.5s;
+}
+
+/* Animaciones específicas para secciones */
+.section-animate {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.section-animate.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Animación para sliders */
+.slider-animate {
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.slider-animate.animate-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Animación para texto */
+.text-animate {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.text-animate.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Animación para imágenes */
+.image-animate {
+  opacity: 0;
+  transform: scale(1.1);
+  transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.image-animate.animate-in {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Smooth scroll para todo el documento */
+html {
+  scroll-behavior: auto; /* Lenis maneja el smooth scroll */
+}
+
+/* Optimizaciones de rendimiento */
+.animate-on-scroll,
+.section-animate,
+.slider-animate,
+.text-animate,
+.image-animate {
+  backface-visibility: hidden;
+  perspective: 1000px;
+}

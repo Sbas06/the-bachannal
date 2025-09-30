@@ -17,43 +17,54 @@ const {
 ---
 
 <section class={`slider-container overflow-hidden ${variant}`}>
-  {content?.titleFollowUs && content?.titleInstagram ? (
-    <header class="slider-instagram-header leading-loose text-center text-white pointer-events-none">
-      <h1 class="text-4xl title-instagram">{content.titleFollowUs}</h1>
-      <p class="text-6xl title-follow-us">{content.titleInstagram}</p>
-    </header>
-  ) : null}
-  <div class="my-slider" id="slider-swiper" data-space-between={content?.spaceBetween ?? 12}>
-    <div class="swiper-wrapper">
-      {content?.customImages.map((item) => {
-  const isMeta = typeof item.image === 'object' && item.image !== null && 'src' in item.image;
+  {
+    content?.titleFollowUs && content?.titleInstagram ? (
+      <header class='slider-instagram-header pointer-events-none text-center leading-loose text-white'>
+        <h1 class='title-instagram text-4xl'>{content.titleFollowUs}</h1>
+        <p class='title-follow-us text-6xl'>{content.titleInstagram}</p>
+      </header>
+    ) : null
+  }
+  <div
+    class='my-slider'
+    id='slider-swiper'
+    data-space-between={content?.spaceBetween ?? 12}
+  >
+    <div class='swiper-wrapper'>
+      {
+        content?.customImages.map((item) => {
+          const isMeta =
+            typeof item.image === 'object' &&
+            item.image !== null &&
+            'src' in item.image;
 
-  return (
-    <div class='swiper-slide !h-auto'>
-      {isMeta ? (
-        // item.image is ImageMetadata -> we pass it directly (cast)
-        <Image
-          class='h-full w-full'
-          src={item.image as ImageMetadata}
-          alt={item.alt ?? ''}
-          width={301}
-          height={456}
-          loading={imageLoading}
-        />
-      ) : (
-        // is string -> pass it as such
-        <Image
-          class='h-full w-full'
-          src={item.image as string}
-          alt={item.alt ?? ''}
-          width={301}
-          height={456}
-          loading={imageLoading}
-        />
-      )}
-    </div>
-  );
-      })}
+          return (
+            <div class='swiper-slide !h-auto'>
+              {isMeta ? (
+                // item.image is ImageMetadata -> we pass it directly (cast)
+                <Image
+                  class='h-full w-full'
+                  src={item.image as ImageMetadata}
+                  alt={item.alt ?? ''}
+                  width={301}
+                  height={456}
+                  loading={imageLoading}
+                />
+              ) : (
+                // is string -> pass it as such
+                <Image
+                  class='h-full w-full'
+                  src={item.image as string}
+                  alt={item.alt ?? ''}
+                  width={301}
+                  height={456}
+                  loading={imageLoading}
+                />
+              )}
+            </div>
+          );
+        })
+      }
     </div>
   </div>
 </section>
