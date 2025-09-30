@@ -23,9 +23,6 @@ import {
 
 <Layout>
   <NavBar />
-  <SliderImage content={sliderContent} />
-  <SliderImage content={sliderInstagramContent} />
-  <SliderImage variant="instagram" spaceBetween={6} showHeader speed={3200} />
   <SliderBanner
     isSlider
     content={topSliderContent}
@@ -34,7 +31,9 @@ import {
     paginationPosition='pagLeft'
   />
   <TextImage direction='flex-row' content={textImageBacchanalMean} />
+  <SliderImage content={sliderContent} variant='default'/>
   <TextImage direction='flex-row-reverse' content={textImageBacchanalStory} />
+  <SliderImage content={sliderInstagramContent} variant='instagram-slider'/>
   <SliderBanner
     content={singleBanner}
     contentPosition='left'
