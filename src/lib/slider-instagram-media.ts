@@ -17,19 +17,19 @@ export const sliderContent: SliderProps =
   customImages: [
     {
       image: img1,
-      alt: 'slider image 1'
+      alt: 'Chili-frosted mason jar cocktail'
     },
     {
       image: img2,
-      alt: 'slider image 2'
+      alt: 'Cocktail in a martini glass decorated with a heart-shaped lemon peel strip'
     },
     {
       image: img3,
-      alt: 'slider image 3'
+      alt: 'Red cocktail in a martini glass with chili frosting, cherry, and lemon peel garnish'
     },
     {
       image: img4,
-      alt: 'slider image 4'
+      alt: 'Two cocktails in a short glass, one light with mint and one dark, both garnished with a lemon slice'
     },
   ],
   spaceBetween: 12,
@@ -41,31 +41,31 @@ export const sliderInstagramContent: SliderProps =
   customImages: [
     {
       image: imginstagram1,
-      alt: 'slider instagram image 1'
+      alt: 'instagram-post-01'
     },
     {
       image: imginstagram2,
-      alt: 'slider instagram image 2'
+      alt: 'instagram-post-02'
     },
     {
       image: imginstagram3,
-      alt: 'slider instagram image 3'
+      alt: 'instagram-post-03'
     },
     {
       image: imginstagram4,
-      alt: 'slider instagram image 4'
+      alt: 'instagram-post-04'
     },
     {
       image: imginstagram5,
-      alt: 'slider instagram image 5'
+      alt: 'instagram-post-05'
     },
     {
       image: imginstagram6,
-      alt: 'slider instagram image 6'
+      alt: 'instagram-post-06'
     },
     {
       image: imginstagram7,
-      alt: 'slider instagram image 7'
+      alt: 'instagram-post-07'
     },
   ],
   spaceBetween: 6,
