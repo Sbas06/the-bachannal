@@ -7,16 +7,14 @@ import './slider.css';
 
 const {
   content,
-  imageLoading,
-  variant,
+  imageLoading
 }: {
   content?: SliderProps;
   imageLoading?: 'eager' | 'lazy';
-  variant?: string;
 } = Astro.props;
 ---
 
-<section class={`slider-container overflow-hidden ${variant}`}>
+<section class={`slider-container overflow-hidden`}>
   {content?.titleFollowUs && content?.titleInstagram ? (
     <header class="slider-instagram-header leading-loose text-center text-white pointer-events-none">
       <h1 class="text-4xl title-instagram">{content.titleFollowUs}</h1>
