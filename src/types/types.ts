@@ -8,7 +8,7 @@ export interface SliderContent {
   alt?: string;
 }
 export interface SliderImage {
-  image: string  | ImageMetadata; 
+  image: ImageMetadata;
   alt?: string;
 }
 
@@ -29,4 +29,3 @@ export interface TextImage {
   highlightText: string;
   complementInfo: string;
 }
-
