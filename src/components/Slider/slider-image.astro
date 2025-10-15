@@ -1,6 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
 import type { SliderProps } from '@/types/types';
 import Button from '@/components/Button/Button.astro';
 import '@/components/SliderBanner/sliderBanner.css';
@@ -128,7 +127,7 @@ const getButtonText = () => {
                   class='h-full w-full'
                   src={item.image as string}
                   alt={altText}
-                  width={301}
+                  width={1200}
                   height={456}
                   loading={imageLoading}
                 />

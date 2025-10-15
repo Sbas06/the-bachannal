@@ -33,4 +33,3 @@ export interface TextImage {
   highlightText?: string;
   complementInfo?: string;
 }
-
