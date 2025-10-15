@@ -5,7 +5,8 @@ const {
   text,
   href,
   isOutWeb,
-}: { text?: string; href?: string; isOutWeb?: boolean } = Astro.props;
+  showIcon = true,
+}: { text?: string; href?: string; isOutWeb?: boolean, showIcon?: boolean } = Astro.props;
 ---
 
 {
@@ -20,7 +21,7 @@ const {
 
       <div class='transition-transfrom absolute inset-0 w-full -translate-x-full bg-gradient-to-r from-transparent via-[#FFFFFF33] to-transparent duration-700 ease-in-out group-hover:translate-x-full' />
 
-      <Icons name='right-arrow' />
+      {showIcon && <Icons name='right-arrow' />}
     </a>
   ) : (
     <a
@@ -32,7 +33,7 @@ const {
 
       <div class='transition-transfrom absolute inset-0 w-full -translate-x-full bg-gradient-to-r from-transparent via-[#FFFFFF33] to-transparent duration-700 ease-in-out group-hover:translate-x-full' />
 
-      <Icons name='right-arrow' />
+      {showIcon && <Icons name='right-arrow' />}
     </a>
   )
 }

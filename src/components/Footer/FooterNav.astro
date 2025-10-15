@@ -1,21 +1,25 @@
 ---
 import Gradient from '@/components/Gradient/Gradient.astro';
 
-const date: number = new Date().getFullYear();
-const footerNavigation: { name: string; href: string }[] = [
-  {
-    name: 'Menu',
-    href: '/menu',
-  },
-  {
-    name: 'Delivery Menu',
-    href: '/delivery-menu',
-  },
-  {
-    name: 'About Us',
-    href: '/about-us',
-  },
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+const currentLang = Astro.currentLocale ?? 'es';
+
+// Load all translations into /src/i18n and resolve the relevant one
+const translations = import.meta.glob('/src/i18n/*.ts', { eager: true }) as Record<string, any>;
+const messages = translations[`/src/i18n/${currentLang}.ts`]?.default
+  ?? translations[`/src/i18n/${currentLang}.js`]?.default
+  ?? { footer: {} };
+
+// Define the routes (use keys to search the translation object)
+const components = [
+  { key: 'menu', href: '/menu' },
+  { key: 'deliveryMenu', href: '/delivery-menu' },
+  { key: 'aboutUs', href: '/about-us' },
 ];
+
+const date: number = new Date().getFullYear();
+const copyright = messages?.footer?.copyright ?? 'El Bacchanal. All rights reserved';
 ---
 
 <Gradient
@@ -26,15 +30,15 @@ const footerNavigation: { name: string; href: string }[] = [
 >
   <nav>
     <ul class='flex gap-x-[34px]'>
-      {
-        footerNavigation.map((item) => (
-          <li>
-            <a href={item.href}>{item.name}</a>
-          </li>
-        ))
-      }
+    {components.map((c) => (
+      <li>
+        <a href={getRelativeLocaleUrl(currentLang, c.href)}>
+          {messages?.footer?.[c.key] ?? c.key}
+        </a>
+      </li>
+    ))}
     </ul>
   </nav>
 
-  <p>&copy; {date} El Bacchanal, All right reserved</p>
+  <p>&copy; {date} {copyright}</p>
 </Gradient>

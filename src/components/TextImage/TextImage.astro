@@ -13,6 +13,23 @@ const {
   content?: TextImage;
   hasGradient?: boolean;
 } = Astro.props;
+
+const currentLang = Astro.currentLocale ?? 'es';
+
+// Load all translations under /src/i18n (build-time)
+const translations = import.meta.glob('/src/i18n/*.ts', { eager: true }) as Record<string, any>;
+const messages =
+  translations[`/src/i18n/${currentLang}.ts`]?.default
+  ?? translations[`/src/i18n/${currentLang}.js`]?.default
+  ?? {};
+
+// Helper: Gets the translation if it exists, if not, returns the fallback (value in content)
+const getTranslation = (field: keyof TextImage) => {
+  const id = content?.id;
+  if (!id) return content?.[field as keyof TextImage] ?? '';
+  const translated = messages?.textImage?.[id]?.[field as string];
+  return translated ?? content?.[field as keyof TextImage] ?? '';
+};
 ---
 
 <Gradient
@@ -20,16 +37,14 @@ const {
   containerClass='relative flex h-[100dvh] justify-center'
   hasGradient={hasGradient}
 >
-  <div
-    class={`flex ${direction} items-center justify-center xl:gap-x-20 2xl:gap-x-28`}
-  >
+  <div class={`flex ${direction} items-center justify-center xl:gap-x-20 2xl:gap-x-28`}>
     {
       content?.image && (
         <Image
-          src={content?.image}
-          alt={content?.alt ?? ''}
-          width={content?.width}
-          height={content?.height}
+          src={content.image}
+          alt={getTranslation('alt')}
+          width={content.width}
+          height={content.height}
           class='1xl:max-w-[550px] lg:max-w-[512px] 2xl:max-w-[700px]'
         />
       )
@@ -38,16 +53,14 @@ const {
     <div>
       <div class='flex flex-col items-center 2xl:w-[590px]'>
         <h2 class='text-center'>
-          <span class='font-koulen text-[40px]'>{content?.title}</span>
-          <p
-            class='font-whitehella text-gradient-bacchanal text-[50px] leading-[2.2]'
-          >
-            {content?.highlightText}
+          <span class='font-koulen text-[40px]'>{getTranslation('title')}</span>
+          <p class='font-whitehella text-gradient-bacchanal text-[50px] leading-[2.2]'>
+            {getTranslation('highlightText')}
           </p>
         </h2>
 
         <p class='max-w-[500px] text-center text-balance'>
-          {content?.complementInfo}
+          {getTranslation('complementInfo')}
         </p>
       </div>
     </div>

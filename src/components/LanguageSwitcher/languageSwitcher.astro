@@ -1,0 +1,86 @@
+---
+import './languageSwitcher.css';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+const currentLang = Astro.currentLocale ?? 'es';
+
+// We build the current path (pathname + search + hash) but
+// first we remove the current language prefix if it exists to avoid duplicates.
+// E.g.: /es/menu -> /menu (like this getRelativeLocaleUrl('en', '/menu') => /en/menu)
+const currentUrl = new URL(Astro.request.url);
+let pathname = currentUrl.pathname || '/';
+
+// Remove leading locale segment if it matches currentLang
+// Handles: "/es", "/es/", "/es/some/path"
+if (pathname === `/${currentLang}`) {
+  pathname = '/';
+} else if (pathname.startsWith(`/${currentLang}/`)) {
+  pathname = pathname.slice(currentLang.length + 1); // removes "/es"
+  if (!pathname.startsWith('/')) pathname = '/' + pathname;
+}
+
+// keep search and hash
+const currentPath = `${pathname}${currentUrl.search ?? ''}${currentUrl.hash ?? ''}`;
+
+// List of available languages
+const langs = [
+  { code: 'es', label: 'Español', emoji: '🇪🇸' },
+  { code: 'en', label: 'English', emoji: '🇺🇸' },
+];
+
+// We generate hrefs with getRelativeLocaleUrl
+const langLinks = langs.map(l => ({
+  ...l,
+  href: getRelativeLocaleUrl(l.code, currentPath)
+}));
+---
+<div class="language-switcher-wrapper" role="navigation" aria-label="Language switcher">
+
+  <select id="lang-select" data-lang-switch aria-label="Select language">
+    {langLinks.map(l => (
+      <option
+        value={l.href}
+        data-lang={l.code}
+        selected={l.code === currentLang ? true : undefined}
+      >
+        {l.label}
+      </option>
+    ))}
+  </select>
+
+  <noscript>
+    <div class="lang-links-noscript">
+      {langLinks.map(l => (
+        <a href={l.href} hreflang={l.code} rel="alternate" aria-current={l.code === currentLang ? 'true' : 'false'}>
+          {l.emoji} {l.label}
+        </a>
+      ))}
+    </div>
+  </noscript>
+
+  <script type="module">
+    (function () {
+      const select = document.querySelector('select[data-lang-switch]');
+      if (!select) return;
+
+      // asegurar que el select muestra el idioma actual (por si el navegador no respetó selected)
+      try {
+        const currentOption = Array.from(select.options).find(o => o.dataset.lang === document.documentElement.lang);
+        if (currentOption) select.value = currentOption.value;
+      } catch (e) { /* noop */ }
+
+      select.addEventListener('change', (ev) => {
+        const opt = select.options[select.selectedIndex];
+        const href = opt?.value;
+        const lang = opt?.dataset?.lang;
+        if (lang) {
+          try { localStorage.setItem('preferredLang', lang); } catch (e) { /* noop */ }
+        }
+        if (href) {
+          // navegamos a la URL generada server-side (mantiene query + hash)
+          location.href = href;
+        }
+      });
+    })();
+  </script>
+</div>

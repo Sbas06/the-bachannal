@@ -6,6 +6,36 @@ import MapSvg from '@/components/FindusSection/MapSvg.astro';
 
 import { paradiseMedia } from '@/lib/utils';
 import '@/components/FindusSection/findUsSection.css';
+
+// Locale actual
+const currentLang = Astro.currentLocale ?? 'es';
+
+// Load translations (build-time)
+const translations = import.meta.glob('/src/i18n/*.ts', { eager: true }) as Record<string, any>;
+const messages =
+  translations[`/src/i18n/${currentLang}.ts`]?.default
+  ?? translations[`/src/i18n/${currentLang}.js`]?.default
+  ?? {};
+
+// Messages specific to this section (including fallbacks)
+const findUsMsgs = messages?.findUs ?? {};
+
+// Helpers for texts
+const titlePart1 = findUsMsgs?.title?.part1 ?? 'Find Us Near';
+const titlePart2 = findUsMsgs?.title?.part2 ?? 'the main Park Guatapé';
+const description = findUsMsgs?.description ?? "The vibrant restaurant El Bacchanal is conveniently located just a 2-minute walk (150 meters) from Guatapé's iconic Nuestra Señora del Carmen Church and the main square, making it easy to find.";
+const mainIconAlt = findUsMsgs?.mainIconAlt ?? 'Logo for El Bacchanal, a bar in Guatapé, Colombia, featuring a red, yellow, and green gradient background, a firecracker icon, a cocktail glass, and the Instagram handle @el_bacchanal.';
+const buttonText = findUsMsgs?.buttonText ?? 'Find Us';
+
+// Get translated alt for slideshow images (search by index in findUsMsgs.images array)
+const getSlideAlt = (item: any, index: number) => {
+  const fallback = item?.alt ?? '';
+  const imgs = findUsMsgs?.images;
+  if (Array.isArray(imgs) && imgs[index] && typeof imgs[index].alt === 'string') {
+    return imgs[index].alt;
+  }
+  return fallback;
+};
 ---
 
 <section class='flex h-[100dvh] items-center justify-center'>
@@ -23,7 +53,7 @@ import '@/components/FindusSection/findUsSection.css';
         >
           <Image
             src={MainIcon}
-            alt='Logo for El Bacchanal, a bar in Guatapé, Colombia, featuring a red, yellow, and green gradient background, a firecracker icon, a cocktail glass, and the Instagram handle @el_bacchanal.'
+            alt={mainIconAlt}
             width={90}
             height={90}
             class='flex'
@@ -48,22 +78,20 @@ import '@/components/FindusSection/findUsSection.css';
   </div>
   <div class='flex flex-col items-center gap-y-[50px]'>
     <h3 class='text-center'>
-      <span class='font-koulen text-[40px]'>Find Us Near</span>
+      <span class='font-koulen text-[40px]'>{titlePart1}</span>
       <p
         class='font-whitehella text-gradient-bacchanal px-5 text-[50px] leading-[2.5]'
       >
-        the main Park Guatapé
+        {titlePart2}
       </p>
     </h3>
 
     <p class='text-pertty max-w-[542px] text-center'>
-      The vibrant restaurant El Bacchanal is conveniently located just a
-      2-minute walk (150 meters) from Guatapé's iconic Nuestra Señora del Carmen
-      Church and the main square, making it easy to find.
+      {description}
     </p>
 
     <Button
-      text='Find Us'
+      text={buttonText}
       href='https://maps.app.goo.gl/5x7Qa3XiknXAHqXV7'
       isOutWeb
     />

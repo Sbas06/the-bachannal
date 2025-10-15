@@ -1,28 +1,30 @@
 ---
-const components: { title: string; href: string }[] = [
-  {
-    title: 'Menu',
-    href: '/menu',
-  },
-  {
-    title: 'Delivery Menu',
-    href: '/delivery-menu',
-  },
-  {
-    title: 'About Us',
-    href: '/about-us',
-  },
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+const currentLang = Astro.currentLocale ?? 'es';
+
+// Load all translations into /src/i18n and resolve the relevant one
+const translations = import.meta.glob('/src/i18n/*.ts', { eager: true }) as Record<string, any>;
+const messages = translations[`/src/i18n/${currentLang}.ts`]?.default
+  ?? translations[`/src/i18n/${currentLang}.js`]?.default
+  ?? { navbar: {} };
+
+// Define the routes (use keys to search the translation object)
+const components = [
+  { key: 'menu', href: '/menu' },
+  { key: 'deliveryMenu', href: '/delivery-menu' },
+  { key: 'aboutUs', href: '/about-us' },
 ];
 ---
 
 <nav>
-  <ul class='flex gap-x-[34px]'>
-    {
-      components.map((component) => (
-        <li>
-          <a href={component.href}>{component.title}</a>
-        </li>
-      ))
-    }
+  <ul class="flex gap-x-[34px]">
+    {components.map((c) => (
+      <li>
+        <a href={getRelativeLocaleUrl(currentLang, c.href)}>
+          {messages?.navbar?.[c.key] ?? c.key}
+        </a>
+      </li>
+    ))}
   </ul>
 </nav>

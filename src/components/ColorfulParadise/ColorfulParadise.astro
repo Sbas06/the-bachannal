@@ -4,19 +4,44 @@ import { paradiseMedia } from '@/lib/utils';
 import { Image } from 'astro:assets';
 
 import '@/components/ColorfulParadise/colorfulParadise.css';
+
+// Current locale
+const currentLang = Astro.currentLocale ?? 'es';
+
+// Load translations (build-time)
+const translations = import.meta.glob('/src/i18n/*.ts', { eager: true }) as Record<string, any>;
+const messages =
+  translations[`/src/i18n/${currentLang}.ts`]?.default
+  ?? translations[`/src/i18n/${currentLang}.js`]?.default
+  ?? {};
+
+// Messages specific to this component
+const cpMsgs = messages?.colorfulParadise ?? {};
+
+// Translatable title (fallback to hardcoded text)
+const title = cpMsgs?.title ?? 'A colorful paradise';
+
+// Get translated alt for each image by index (fallback to the item's alt)
+const getImageAlt = (item: any, index: number) => {
+  const imgs = cpMsgs?.images;
+  if (Array.isArray(imgs) && imgs[index] && typeof imgs[index].alt === 'string') {
+    return imgs[index].alt;
+  }
+  return item?.alt ?? '';
+};
 ---
 
 <section class='relative pt-20 pb-16'>
   <ColorfulVector />
 
   <div class='flex flex-col items-center gap-y-28 text-6xl'>
-    <h6 class='font-koulen'>A colorful paradise</h6>
+    <h6 class='font-koulen'>{title}</h6>
     <div
       class='grid w-[85%] grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-x-[9px]'
     >
       {
-        paradiseMedia.map((item) => (
-          <Image src={item.url} alt={item.alt} width={300} height={456} />
+        paradiseMedia.map((item, idx) => (
+          <Image src={item.url} alt={getImageAlt(item, idx)} width={300} height={456} />
         ))
       }
     </div>

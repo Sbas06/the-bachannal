@@ -6,10 +6,9 @@ import '@/components/SliderBanner/sliderBanner.css';
 import './slider.css';
 
 const {
-  id,
+  id: propId,
   content,
   imageLoading,
-
   variant,
   redirectTo,
   buttonText,
@@ -23,48 +22,111 @@ const {
   buttonText?: string;
   outWeb?: boolean;
 } = Astro.props;
+
+// Locale actual
+const currentLang = Astro.currentLocale ?? 'es';
+
+// Upload translations (build-time)
+const translations = import.meta.glob('/src/i18n/*.ts', { eager: true }) as Record<string, any>;
+const messages =
+  translations[`/src/i18n/${currentLang}.ts`]?.default
+  ?? translations[`/src/i18n/${currentLang}.js`]?.default
+  ?? {};
+
+// Determine the effective id to search for translations.
+let effectiveId: string | undefined;
+if (propId && messages?.slider?.[propId]) {
+  effectiveId = propId;
+} else if (content?.id && messages?.slider?.[content.id]) {
+  effectiveId = content.id;
+} else if (propId) {
+  effectiveId = propId;
+} else if (content?.id) {
+  effectiveId = content.id;
+} else {
+  effectiveId = undefined;
+}
+
+// Get translated text at the slider level (ex: title Follows/title Instagram)
+const getSliderText = (field: keyof SliderProps) => {
+  if (!effectiveId) return content?.[field] ?? '';
+  return messages?.slider?.[effectiveId]?.[field as string] ?? content?.[field] ?? '';
+};
+
+// Get translated alt for each image, searching in messages.slider.[effectiveId].images (array) by index
+const getImageAlt = (item: any, index: number) => {
+  const fallback = item?.alt ?? '';
+
+  if (!effectiveId) return fallback;
+
+  const sliderMessages = messages?.slider?.[effectiveId];
+  if (!sliderMessages) return fallback;
+
+  const imgs = sliderMessages?.images;
+
+  // imgs expected as array: images[index]?.alt
+  if (Array.isArray(imgs)) {
+    const found = imgs[index];
+    if (found && typeof found.alt === 'string') return found.alt;
+  }
+
+  // If there is no array or no alt at the position, fallback to the item's alt
+  return fallback;
+};
+
+const getButtonText = () => {
+  if (effectiveId) {
+    const bt = messages?.slider?.[effectiveId]?.buttonText;
+    if (typeof bt === 'string' && bt.length) return bt;
+  }
+  if (typeof buttonText === 'string' && buttonText.length) return buttonText;
+  return 'Discover';
+};
 ---
 
 <section
   class={`slider-container overflow-hidden flex flex-col justify-center gap-y-11 h-[100dvh] ${variant}`}
 >
   {
-    content?.titleFollowUs && content?.titleInstagram ? (
+    (content?.titleFollowUs || content?.titleInstagram || (effectiveId && messages?.slider?.[effectiveId])) ? (
       <header class='slider-instagram-header pointer-events-none text-center leading-loose text-white'>
-        <h1 class='font-koulen text-4xl'>{content.titleFollowUs}</h1>
-        <p class='font-koulen text-6xl'>{content.titleInstagram}</p>
+        <h1 class='title-instagram text-4xl'>{ getSliderText('titleFollowUs') }</h1>
+        <p class='title-follow-us text-6xl'>{ getSliderText('titleInstagram') }</p>
       </header>
     ) : null
   }
+
   <div
     class='my-slider'
-    id={id}
+    id={propId}
     data-space-between={content?.spaceBetween ?? 12}
   >
     <div class='swiper-wrapper'>
       {
-        content?.customImages.map((item) => {
+        content?.customImages.map((item, idx) => {
           const isMeta =
             typeof item.image === 'object' &&
             item.image !== null &&
             'src' in item.image;
+
+          const altText = getImageAlt(item, idx);
 
           return (
             <div class='swiper-slide max-h-[630px]'>
               {isMeta ? (
                 <Image
                   class='h-full w-full object-cover'
-                  src={item.image}
-                  alt={item.alt ?? ''}
-                  widths={[301, 600, 1200]}
+                  src={item.image as ImageMetadata}
+                  alt={altText}
+                  width={301}
                   height={456}
                   loading={imageLoading}
                 />
               ) : (
                 <Image
                   class='h-full w-full'
-                  src={item.image}
-                  alt={item.alt ?? ''}
+                  src={item.image as string}
+                  alt={altText}
                   width={1200}
                   height={456}
                   loading={imageLoading}
@@ -77,5 +139,5 @@ const {
     </div>
   </div>
 
-  <Button text={buttonText} href={redirectTo} isOutWeb={outWeb} />
+  <Button text={getButtonText()} href={redirectTo} isOutWeb={outWeb} />
 </section>
