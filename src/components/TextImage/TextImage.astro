@@ -16,19 +16,19 @@ const {
 
 const currentLang = Astro.currentLocale ?? 'es';
 
-// Carga todas las traducciones bajo /src/i18n (build-time)
+// Load all translations under /src/i18n (build-time)
 const translations = import.meta.glob('/src/i18n/*.ts', { eager: true }) as Record<string, any>;
 const messages =
   translations[`/src/i18n/${currentLang}.ts`]?.default
   ?? translations[`/src/i18n/${currentLang}.js`]?.default
   ?? {};
 
-  // Helper: obtiene la traducción si existe, si no devuelve el fallback (valor en content)
-const getTranslation = (field: keyof TI) => {
+// Helper: Gets the translation if it exists, if not, returns the fallback (value in content)
+const getTranslation = (field: keyof TextImage) => {
   const id = content?.id;
-  if (!id) return content?.[field] ?? '';
+  if (!id) return content?.[field as keyof TextImage] ?? '';
   const translated = messages?.textImage?.[id]?.[field as string];
-  return translated ?? content?.[field] ?? '';
+  return translated ?? content?.[field as keyof TextImage] ?? '';
 };
 ---
 

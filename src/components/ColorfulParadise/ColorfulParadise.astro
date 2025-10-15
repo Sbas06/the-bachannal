@@ -5,23 +5,23 @@ import { Image } from 'astro:assets';
 
 import '@/components/ColorfulParadise/colorfulParadise.css';
 
-// locale actual
+// Current locale
 const currentLang = Astro.currentLocale ?? 'es';
 
-// cargar traducciones (build-time)
+// Load translations (build-time)
 const translations = import.meta.glob('/src/i18n/*.ts', { eager: true }) as Record<string, any>;
 const messages =
   translations[`/src/i18n/${currentLang}.ts`]?.default
   ?? translations[`/src/i18n/${currentLang}.js`]?.default
   ?? {};
 
-// Mensajes específicos para este componente
+// Messages specific to this component
 const cpMsgs = messages?.colorfulParadise ?? {};
 
-// título traducible (fallback al texto hardcoded)
+// Translatable title (fallback to hardcoded text)
 const title = cpMsgs?.title ?? 'A colorful paradise';
 
-// obtiene alt traducido para cada imagen por índice (fallback al alt del item)
+// Get translated alt for each image by index (fallback to the item's alt)
 const getImageAlt = (item: any, index: number) => {
   const imgs = cpMsgs?.images;
   if (Array.isArray(imgs) && imgs[index] && typeof imgs[index].alt === 'string') {

@@ -5,9 +5,15 @@ export default {
         en: "Inglés"
     },
     navbar: {
-        menu: "Inicio",
+        menu: "Menú",
         deliveryMenu: "Menú de entrega",
         aboutUs: "Sobre nosotros",
+    },
+    footer: {
+        menu: "Menú",
+        deliveryMenu: "Menú de entrega",
+        aboutUs: "Sobre nosotros",
+        copyright: "El Bacchanal. Todos los derechos reservados"
     },
     textImage: {
         bacchanalMean: {
@@ -24,29 +30,29 @@ export default {
         }
     },
     slider: {
-    sliderGallery: {
-      images: [
-        { alt: 'Mason jar coctel con cobertura de chile' },
-        { alt: 'Cóctel en copa martini con tira de limón en forma de corazón' },
-        { alt: 'Cóctel rojo en copa martini con cobertura de chile, cereza y corteza de limón' },
-        { alt: 'Dos cocteles en vasos cortos, uno claro con menta y uno oscuro' }
-      ],
-      buttonText: 'Descubre nuestro menú',
-    },
-    sliderInstagram: {
-      titleFollowUs: 'Siguenos en redes',
-      titleInstagram: '@EL_BACCHANALL',
-      images: [
-        { alt: 'Publicación de Instagram 01' },
-        { alt: 'Publicación de Instagram 02' },
-        { alt: 'Publicación de Instagram 03' },
-        { alt: 'Publicación de Instagram 04' },
-        { alt: 'Publicación de Instagram 05' },
-        { alt: 'Publicación de Instagram 06' },
-        { alt: 'Publicación de Instagram 07' }
+      sliderGallery: {
+        images: [
+          { alt: 'Mason jar coctel con cobertura de chile' },
+          { alt: 'Cóctel en copa martini con tira de limón en forma de corazón' },
+          { alt: 'Cóctel rojo en copa martini con cobertura de chile, cereza y corteza de limón' },
+          { alt: 'Dos cocteles en vasos cortos, uno claro con menta y uno oscuro' }
         ],
-      buttonText: 'Siguenos en Instagram',
-      }
+        buttonText: 'Descubre nuestro menú',
+      },
+      sliderInstagram: {
+        titleFollowUs: 'Siguenos en redes',
+        titleInstagram: '@EL_BACCHANALL',
+        images: [
+          { alt: 'Publicación de Instagram 01' },
+          { alt: 'Publicación de Instagram 02' },
+          { alt: 'Publicación de Instagram 03' },
+          { alt: 'Publicación de Instagram 04' },
+          { alt: 'Publicación de Instagram 05' },
+          { alt: 'Publicación de Instagram 06' },
+          { alt: 'Publicación de Instagram 07' }
+          ],
+        buttonText: 'Siguenos en Instagram',
+        }
     },
     sliderBanner: {
       topSlider: {
@@ -126,6 +132,15 @@ export default {
         { alt: 'Una mujer agachada frente a un mural colorido junto a un letrero que anuncia "Cerveza Cannabis Weed Beer".' },
         { alt: 'Toma desde abajo de edificios apilados y coloridos pintados en tonos pastel contra un cielo rosa' }
       ]
+    },
+    pdfViewer: {
+      fallbackTitle: 'PDF sobre los menús.',
+      fallbackMessage: 'Puedes abrir el PDF en una nueva pestaña para verlo',
+      pdfFood: 'PDF del menú de comidas',
+      pdfDrink: 'PDF del menú de bebidas',
+      openBtn: 'Abrir PDF',
+      langLabel: 'Idioma',
+      saveBtn: 'Guardar'
     },
     home: {
         title: "Bienvenido a Astro",

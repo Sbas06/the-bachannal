@@ -19,3 +19,13 @@
     outline: 2px solid Highlight;
     outline-offset: 2px;
 }
+
+#lang-select {
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+#lang-select option {
+    background-color: #231F20;
+    padding: 6px 8px;
+}

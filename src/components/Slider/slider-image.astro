@@ -24,17 +24,17 @@ const {
   outWeb?: boolean;
 } = Astro.props;
 
-// locale actual
+// Locale actual
 const currentLang = Astro.currentLocale ?? 'es';
 
-// cargar traducciones (build-time)
+// Upload translations (build-time)
 const translations = import.meta.glob('/src/i18n/*.ts', { eager: true }) as Record<string, any>;
 const messages =
   translations[`/src/i18n/${currentLang}.ts`]?.default
   ?? translations[`/src/i18n/${currentLang}.js`]?.default
   ?? {};
 
-// Determinar el id efectivo para buscar traducciones.
+// Determine the effective id to search for translations.
 let effectiveId: string | undefined;
 if (propId && messages?.slider?.[propId]) {
   effectiveId = propId;
@@ -48,13 +48,13 @@ if (propId && messages?.slider?.[propId]) {
   effectiveId = undefined;
 }
 
-// get translated text at the slider level (ex: title Follows/title Instagram)
+// Get translated text at the slider level (ex: title Follows/title Instagram)
 const getSliderText = (field: keyof SliderProps) => {
   if (!effectiveId) return content?.[field] ?? '';
   return messages?.slider?.[effectiveId]?.[field as string] ?? content?.[field] ?? '';
 };
 
-// get translated alt for each image, searching in messages.slider.[effectiveId].images (array) by index
+// Get translated alt for each image, searching in messages.slider.[effectiveId].images (array) by index
 const getImageAlt = (item: any, index: number) => {
   const fallback = item?.alt ?? '';
 
@@ -71,7 +71,7 @@ const getImageAlt = (item: any, index: number) => {
     if (found && typeof found.alt === 'string') return found.alt;
   }
 
-  // Si no hay array o no hay alt en la posición, fallback al alt del item
+  // If there is no array or no alt at the position, fallback to the item's alt
   return fallback;
 };
 

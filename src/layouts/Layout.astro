@@ -1,11 +1,6 @@
 ---
 import '@/styles/global.css';
-import type { languageList } from '@/i18n/ui';
-import { useTranslations } from '@/i18n/utils';
-import { getRelativeLocaleUrl } from 'astro:i18n';
 const currentLang = Astro.currentLocale || 'es';
-
-const translateLabels = useTranslations(currentLang as keyof typeof languageList);
 ---
 
 <!doctype html>
@@ -13,7 +8,7 @@ const translateLabels = useTranslations(currentLang as keyof typeof languageList
   <head>
     <meta charset='UTF-8' />
     <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-    <script src="/i18n.js" defer></script>
+
     <meta
       name='description'
       content='THE BACCHANAL - Restaurante y Bar en Guatape, Antioquia, Colombia'

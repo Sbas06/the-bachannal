@@ -1,3 +1,5 @@
+import { Copyright } from "lucide-react";
+
 export default {
     languageLabel: "Language",
     languageOptions: {
@@ -8,6 +10,12 @@ export default {
         menu: "Menu",
         deliveryMenu: "Delivery Menu",
         aboutUs: "About Us",
+    },
+    footer: {
+        menu: "Menu",
+        deliveryMenu: "Delivery Menu",
+        aboutUs: "About Us",
+        copyright: "El Bacchanal, All rights reserved"
     },
     textImage: {
         bacchanalMean: {
@@ -124,6 +132,15 @@ export default {
         { alt: 'A woman crouches in front of a colorful mural next to a sign advertising "Cerveza Cannabis Weed Beer."' },
         { alt: 'A low-angle shot of brightly colored, stacked buildings painted in pastel shades against a solid pink sky' }
       ]
+    },
+    pdfViewer: {
+      fallbackTitle: 'PDF about the menus.',
+      fallbackMessage: 'You can open the PDF in a new window to view it',
+      pdfFood: 'Food Menu PDF',
+      pdfDrink: 'Drink Menu PDF',
+      openBtn: 'Open PDF',
+      langLabel: 'Language',
+      saveBtn: 'Save'
     },
     home: {
         title: "Welcome to Astro",

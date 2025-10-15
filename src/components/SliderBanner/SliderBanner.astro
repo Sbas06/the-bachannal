@@ -21,17 +21,17 @@ const {
   id?: string;
 } = Astro.props;
 
-// locale actual
+// Locale actual
 const currentLang = Astro.currentLocale ?? 'es';
 
-// cargar traducciones (build-time)
+// Upload translations (build-time)
 const translations = import.meta.glob('/src/i18n/*.ts', { eager: true }) as Record<string, any>;
 const messages =
   translations[`/src/i18n/${currentLang}.ts`]?.default
   ?? translations[`/src/i18n/${currentLang}.js`]?.default
   ?? {};
 
-// Determinar effectiveId para lookup en i18n
+// Determine effectiveId for lookup in i18n
 let effectiveId: string | undefined;
 if (propId && (messages?.slider?.[propId] || messages?.sliderBanner?.[propId])) {
   effectiveId = propId;
@@ -45,9 +45,9 @@ if (propId && (messages?.slider?.[propId] || messages?.sliderBanner?.[propId])) 
   effectiveId = undefined;
 }
 
-// Helper: obtener banner text (bannerSpan / bannerTitle) con fallback
+// Helper: get banner text (bannerSpan / bannerTitle) with fallback
 const getBannerText = (field: 'bannerSpan' | 'bannerTitle') => {
-  // Buscar en varias ubicaciones para compatibilidad:
+  // Search multiple locations for compatibility:
   // messages.slider[effectiveId].[field]
   // messages.sliderBanner[effectiveId].[field]
   if (effectiveId) {
@@ -56,17 +56,17 @@ const getBannerText = (field: 'bannerSpan' | 'bannerTitle') => {
     const byBanner = messages?.sliderBanner?.[effectiveId]?.[field];
     if (typeof byBanner === 'string') return byBanner;
   }
-  // fallback al content o valores por defecto
+  // Fallback to content or default values
   if (content?.[field]) return content[field];
   if (field === 'bannerSpan') return 'Guatape-Colombia';
   if (field === 'bannerTitle') return 'El Bacchanal';
   return '';
 };
 
-// Helper: obtener array de imágenes traducidas (si existe) - busca en varias rutas
+// Helper: get array of translated images (if exists) - search in multiple paths
 const getTranslatedImagesArray = () => {
   if (!effectiveId) return null;
-  // Preferencias: messages.slider[effectiveId].slider -> messages.slider[effectiveId].images
+  // Preferences: messages.slider[effectiveId].slider -> messages.slider[effectiveId].images
   const m = messages?.slider?.[effectiveId];
   if (m?.slider && Array.isArray(m.slider)) return m.slider;
   if (m?.images && Array.isArray(m.images)) return m.images;
@@ -77,14 +77,14 @@ const getTranslatedImagesArray = () => {
   return null;
 };
 
-// Helper: obtener alt traducido para slider array por índice
+// Helper: Get translated alt for slider array by index
 const getSliderImageAlt = (index: number, fallbackAlt = '') => {
   const imgs = getTranslatedImagesArray();
   if (imgs && imgs[index] && typeof imgs[index].alt === 'string') return imgs[index].alt;
   return fallbackAlt;
 };
 
-// Helper: obtener alt traducido para single banner image (content.image)
+// Helper: Get translated alt for single banner image (content.image)
 const getSingleImageAlt = (fallbackAlt = '') => {
   if (!effectiveId) return fallbackAlt;
   const bySlider = messages?.slider?.[effectiveId]?.alt;
