@@ -1,0 +1,21 @@
+.languages-switcher {
+    display: flex;
+    gap: .5rem;
+}
+
+.lang-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+}
+
+.lang-btn[aria-pressed="true"] {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+    border-color: rgba(0, 0, 0, 0.12);
+}
+
+.lang-btn:focus {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+}

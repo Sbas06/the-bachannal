@@ -1,0 +1,56 @@
+---
+import './languageSwitcher.css';
+---
+
+<div class="languages-switcher" role="navigation" aria-label="Language switcher">
+  <!-- Botones sin atributos de estado inicial -->
+  <button 
+    class="lang-btn" 
+    data-lang="es" 
+    title="Español"
+  >
+    🇪🇸
+  </button>
+  
+  <button 
+    class="lang-btn" 
+    data-lang="en" 
+    title="English"
+  >
+    🇬🇧
+  </button>
+</div>
+
+<script type="module">
+  // Este script se ejecuta **solo en el cliente** (después de que el DOM esté listo)
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.lang-btn');
+    
+    // 1. Obtener el idioma preferido desde localStorage (solo en cliente)
+    const preferredLang = localStorage.getItem('preferredLang') || 'en';
+    
+    // 2. Actualizar el estado inicial de los botones
+    buttons.forEach(button => {
+      const lang = button.getAttribute('data-lang');
+      // Usar `aria-pressed` como booleano (no cadena)
+      button.setAttribute('aria-pressed', lang === preferredLang);
+    });
+
+    // 3. Manejar clics en los botones
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const lang = button.getAttribute('data-lang');
+        
+        // Actualizar estado de los botones
+        buttons.forEach(btn => btn.setAttribute('aria-pressed', 'false'));
+        button.setAttribute('aria-pressed', 'true');
+        
+        // Guardar preferencia en localStorage
+        localStorage.setItem('preferredLang', lang);
+        
+        // Cambiar idioma (usando la API global)
+        window.i18n.setLanguage(lang);
+      });
+    });
+  });
+</script>

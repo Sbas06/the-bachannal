@@ -14,6 +14,7 @@ import imginstagram7 from '../assets/images/El-bacchanal-Slider-instagram-Image7
 
 export const sliderContent: SliderProps =
 {
+  id: 'sliderGallery',
   customImages: [
     {
       image: img1,
@@ -38,6 +39,7 @@ export const sliderContent: SliderProps =
 
 export const sliderInstagramContent: SliderProps =
 {
+  id: 'sliderInstagram',
   customImages: [
     {
       image: imginstagram1,

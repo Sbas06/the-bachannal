@@ -1,0 +1,242 @@
+---
+// No 'imports' running on the server
+import './PDFViewer.css';
+import '@/components/PDFViewer/PDFViewer.css';
+
+const {
+  redirectTo,
+  buttonText,
+  outWeb,
+}: {
+  redirectTo?: string;
+  buttonText?: string;
+  outWeb?: boolean;
+} = Astro.props;
+---
+<div 
+  id="pdf-container" 
+  class="pdf-viewer-container"
+  data-button-text="${Astro.props.buttonText || ''}"
+  data-redirect-to="${Astro.props.redirectTo || ''}"
+  data-out-web="${Astro.props.outWeb || false}"
+>
+  <div id="pdf-embed-wrapper" class="pdf-embed-wrapper"></div>
+  
+  <div id="pdf-fallback" class="pdf-fallback" style="display:none;">
+    <div class="fallback-content">
+      <div class="pdf-icon">...svg...</div>
+      <h3 id="fallback-title" class="fallback-title">The PDF cannot be displayed.</h3>
+      <p id="fallback-message" class="fallback-message">
+        You can open the PDF in a new window to view it
+      </p>
+
+      <!-- Bloque: PDF Comidas -->
+      <p id="pdf-food-title">PDF del menu de comidas</p>
+      <div class="fallback-buttons">
+        <a
+          id="open-food-btn"
+          class="pdf-button"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Open PDF
+          <div class="button-overlay"></div>
+        </a>
+      </div>
+
+      <!-- Bloque: PDF Bebidas -->
+      <p id="pdf-drink-title">PDF del menu de Bebidas</p>
+      <div class="fallback-buttons">
+        <a
+          id="open-drink-btn"
+          class="pdf-button"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Open PDF
+          <div class="button-overlay"></div>
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <p id="pdf-loading" class="loading-message">Loading PDF…</p>
+</div>
+
+
+<script type="module">
+  // ---------- Configuración de nombres de archivo ----------
+  const PDFs = {
+    en: {
+      food: '/docs/Menu-Food-English.pdf',
+      drink: '/docs/Menu-Drink-English.pdf'
+    },
+    es: {
+      food: '/docs/Menu-Food-Spanish.pdf',
+      drink: '/docs/Menu-Drink-Spanish.pdf'
+    }
+  };
+
+  // ---------- Traducciones simples para el fallback ----------
+  const i18n = {
+    en: {
+      fallbackTitle: 'The PDF cannot be displayed.',
+      fallbackMessage: 'You can open the PDF in a new window to view it',
+      pdfFood: 'Food Menu PDF',
+      pdfDrink: 'Drink Menu PDF',
+      openBtn: 'Open PDF',
+      langLabel: 'Language',
+      saveBtn: 'Save'
+    },
+    es: {
+      fallbackTitle: 'El PDF no se puede mostrar.',
+      fallbackMessage: 'Puedes abrir el PDF en una nueva pestaña para verlo',
+      pdfFood: 'PDF del menú de comidas',
+      pdfDrink: 'PDF del menú de bebidas',
+      openBtn: 'Abrir PDF',
+      langLabel: 'Idioma',
+      saveBtn: 'Guardar'
+    }
+  };
+
+  // ---------- Helpers para detección de idioma ----------
+  function detectLanguage() {
+    try {
+      const q = new URLSearchParams(location.search);
+      const qLang = q.get('lang');
+      if (qLang) return qLang.split('-')[0].toLowerCase().startsWith('es') ? 'es' : 'en';
+    } catch (e) {}
+    const stored = localStorage.getItem('preferredLang');
+    if (stored === 'es' || stored === 'en') return stored;
+    const container = document.getElementById('pdf-container');
+    if (container?.dataset?.lang) {
+      const p = container.dataset.lang;
+      if (p === 'es' || p === 'en') return p;
+    }
+    const nav = (navigator.languages && navigator.languages.length) ? navigator.languages[0] : (navigator.language || navigator.userLanguage || 'en');
+    const code = String(nav).split('-')[0].toLowerCase();
+    if (code === 'es') return 'es';
+    return 'en';
+  }
+
+  // ---------- Inicialización ----------
+  const container = document.getElementById('pdf-container');
+  const openFoodBtn = document.getElementById('open-food-btn');
+  const openDrinkBtn = document.getElementById('open-drink-btn');
+  const fallbackElem = document.getElementById('pdf-fallback');
+  const loadingElem = document.getElementById('pdf-loading');
+  const embedWrapper = document.getElementById('pdf-embed-wrapper');
+  const pdfFoodTitle = document.getElementById('pdf-food-title');
+  const pdfDrinkTitle = document.getElementById('pdf-drink-title');
+  const langLabel = document.getElementById('lang-label');
+
+  const lang = detectLanguage();
+  document.documentElement.lang = lang;
+
+  function applyTranslations(l) {
+    const t = i18n[l] || i18n.en;
+    const title = document.getElementById('fallback-title');
+    const msg = document.getElementById('fallback-message');
+    if (title) title.textContent = t.fallbackTitle;
+    if (msg) msg.textContent = t.fallbackMessage;
+    if (pdfFoodTitle) pdfFoodTitle.textContent = t.pdfFood;
+    if (pdfDrinkTitle) pdfDrinkTitle.textContent = t.pdfDrink;
+    if (openFoodBtn) openFoodBtn.textContent = t.openBtn;
+    if (openDrinkBtn) openDrinkBtn.textContent = t.openBtn;
+    if (langLabel) langLabel.textContent = t.langLabel;
+    const saveBtn = document.getElementById('lang-save-btn');
+    if (saveBtn) saveBtn.textContent = t.saveBtn;
+  }
+  applyTranslations(lang);
+
+  // Configure links for the detected language (food + drink)
+  const pdfFoodUrl = PDFs[lang]?.food || PDFs.en.food;
+  const pdfDrinkUrl = PDFs[lang]?.drink || PDFs.en.drink;
+
+  if (openFoodBtn) {
+    openFoodBtn.href = pdfFoodUrl;
+    openFoodBtn.setAttribute('target', '_blank');
+    openFoodBtn.setAttribute('rel', 'noopener noreferrer');
+  }
+  if (openDrinkBtn) {
+    openDrinkBtn.href = pdfDrinkUrl;
+    openDrinkBtn.setAttribute('target', '_blank');
+    openDrinkBtn.setAttribute('rel', 'noopener noreferrer');
+  }
+
+  // mostrar fallback (se usa si el embed falla)
+  function showFallback() {
+    if (loadingElem) loadingElem.style.display = 'none';
+    if (embedWrapper) embedWrapper.style.display = 'none';
+    if (fallbackElem) fallbackElem.style.display = 'block';
+  }
+
+  // Language switcher UI
+  const selectLang = document.getElementById('lang-switch');
+  const langSaveBtn = document.getElementById('lang-save-btn');
+  if (selectLang) selectLang.value = lang;
+  if (langSaveBtn && selectLang) {
+    langSaveBtn.addEventListener('click', () => {
+      const selected = selectLang.value === 'es' ? 'es' : 'en';
+      localStorage.setItem('preferredLang', selected);
+      location.reload(); // recarga para aplicar idioma y rutas de PDF
+    });
+  }
+
+  // Setup custom button (tu lógica previa)
+  function setupCustomButton() {
+    const customBtn = document.getElementById('custom-btn');
+    const buttonText = container?.dataset?.buttonText || '';
+    const redirectTo = container?.dataset?.redirectTo || '';
+    const outWeb = container?.dataset?.outWeb === 'true';
+    if (buttonText && redirectTo && customBtn) {
+      customBtn.style.display = 'flex';
+      customBtn.textContent = buttonText;
+      customBtn.href = redirectTo;
+      if (outWeb) {
+        customBtn.target = '_blank';
+        customBtn.rel = 'noopener noreferrer';
+      } else {
+        customBtn.target = '_self';
+        customBtn.removeAttribute('rel');
+      }
+    }
+  }
+
+  // Intenta embeder con PDFObject — por defecto embebe el PDF de "food"
+  import('pdfobject').then((PDFObjectModule) => {
+    const PDFObject = PDFObjectModule.default;
+    const timeout = setTimeout(() => { showFallback(); }, 3000);
+
+    try {
+      const embedded = PDFObject.embed(pdfFoodUrl, embedWrapper, {
+        height: "90vh",
+        fallbackLink: false
+      });
+
+      if (embedded) {
+        clearTimeout(timeout);
+        if (loadingElem) loadingElem.style.display = 'none';
+        if (fallbackElem) fallbackElem.style.display = 'none';
+      } else {
+        showFallback();
+      }
+    } catch (e) {
+      console.error('PDF embed error', e);
+      showFallback();
+    }
+  }).catch((error) => {
+    console.error('Import pdfobject error:', error);
+    showFallback();
+  });
+
+  // Inicializar eventos cuando DOM listo
+  document.addEventListener('DOMContentLoaded', function() {
+    if (fallbackElem && fallbackElem.style.display === 'block') {
+      setupCustomButton();
+    }
+  });
+</script>
+

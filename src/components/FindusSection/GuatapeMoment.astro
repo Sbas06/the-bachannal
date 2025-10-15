@@ -1,5 +1,17 @@
 ---
+const currentLang = Astro.currentLocale ?? 'es';
 
+// Load translations (build-time)
+const translations = import.meta.glob('/src/i18n/*.ts', { eager: true }) as Record<string, any>;
+const messages =
+  translations[`/src/i18n/${currentLang}.ts`]?.default
+  ?? translations[`/src/i18n/${currentLang}.js`]?.default
+  ?? {};
+
+// Messages (including fallbacks)
+const titlePart1 = messages?.guatapeMoment?.title?.part1 ?? 'Your Perfect Guatape Moment';
+const titlePart2 = messages?.guatapeMoment?.title?.part2 ?? 'Starts Here';
+const paragraph = messages?.guatapeMoment?.paragraph ?? "At El Bacchanal, you don't just eat—you feast with all your senses. Our lakeside terrace overlooks Guatapé's sparkling waters, where every sunset paints the sky in colors as vibrant as our dishes.";
 ---
 
 <section
@@ -8,19 +20,17 @@
   <h4
     class='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform text-center'
   >
-    <span class='font-koulen text-[50px]'>Your Perfect Guatape Moment</span>
+    <span class='font-koulen text-[50px]'>{titlePart1}</span>
     <p
       class='font-whitehella text-gradient-bacchanal relative bottom-5 text-[50px] leading-[2.2]'
     >
-      Starts Here
+      {titlePart2}
     </p>
   </h4>
 
   <p
     class='absolute bottom-28 left-1/2 mb-4 max-w-[700px] -translate-x-1/2 transform text-center text-[18px] text-pretty'
   >
-    At El Bacchanal, you don't just eat—you feast with all your senses. Our
-    lakeside terrace overlooks Guatapé's sparkling waters, where every sunset
-    paints the sky in colors as vibrant as our dishes.
+    {paragraph}
   </p>
 </section>

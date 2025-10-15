@@ -1,0 +1,8 @@
+{
+  "fallback-title": "The PDF cannot be displayed.",
+  "fallback-message": "You can open the PDF in a new window to view it",
+  "pdf-food-title": "PDF of the Food Menu",
+  "pdf-drink-title": "PDF of the Drink Menu",
+  "open-pdf-button": "Open PDF",
+  "back-to-home": "Back to Home"
+}

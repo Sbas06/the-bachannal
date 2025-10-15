@@ -1,8 +1,12 @@
 ---
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+const currentLang = Astro.currentLocale || 'es';
 import Gradient from '@/components/Gradient/Gradient.astro';
 import NavMenu from '@/components/NavBar/NavMenu.astro';
 import { Image } from 'astro:assets';
 import BacchanalLogo from '@/assets/images/bacchanal-icon-image.webp';
+import LanguageSwitcher from '../LanguageSwitcher/languageSwitcher.astro';
 ---
 
 <Gradient
@@ -12,7 +16,7 @@ import BacchanalLogo from '@/assets/images/bacchanal-icon-image.webp';
   hasGradient
 >
   <NavMenu />
-  <a href='/'>
+  <a href={getRelativeLocaleUrl(currentLang, '/')}>
     <Image
       src={BacchanalLogo}
       width={90}
@@ -21,4 +25,5 @@ import BacchanalLogo from '@/assets/images/bacchanal-icon-image.webp';
       loading='eager'
     />
   </a>
+  <LanguageSwitcher client:load />
 </Gradient>

@@ -1,0 +1,74 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import SliderImage from '@/components/Slider/slider-image.astro';
+import Footer from '@/components/Footer/Footer.astro';
+import NavBar from '@/components/NavBar/NavBar.astro';
+import ColorfulParadise from '@/components/ColorfulParadise/ColorfulParadise.astro';
+import SliderBanner from '@/components/SliderBanner/SliderBanner.astro';
+import TextImage from '@/components/TextImage/TextImage.astro';
+import FindusSection from '@/components/FindusSection/FindusSection.astro';
+
+import {
+  topSliderContent,
+  singleBanner,
+  bottomSliderContent,
+  textImageBacchanalMean,
+  textImageBacchanalStory,
+} from '@/lib/media';
+
+import {
+  sliderContent,
+  sliderInstagramContent,
+} from '@/lib/slider-instagram-media';
+---
+
+<Layout>
+  <NavBar />
+  <SliderBanner
+    isSlider
+    content={topSliderContent}
+    contentPosition='right'
+    imageLoading='eager'
+    paginationPosition='pagLeft'
+    id='upper-slider-banner'
+  />
+  <TextImage direction='flex-row' content={textImageBacchanalMean} />
+  <SliderImage
+    id="sliderGallery"
+    content={sliderContent}
+    variant='default'
+    redirectTo='/delivery-menu'
+    buttonText='Discover our Menu'
+  />
+  <TextImage
+    direction='flex-row-reverse'
+    content={textImageBacchanalStory}
+    hasGradient
+  />
+  <SliderBanner
+    content={singleBanner}
+    contentPosition='left'
+    imageLoading='lazy'
+    id='single-slider-banner'
+  />
+  <FindusSection />
+  <SliderImage
+    id='instagram-slider-bottom'
+    content={sliderInstagramContent}
+    variant='instagram-slider'
+    redirectTo='https://www.instagram.com/el_bacchanal/'
+    buttonText='Follow Us'
+    outWeb
+  />
+  <SliderBanner
+    isSlider
+    content={bottomSliderContent}
+    contentPosition='center'
+    isWhitehella
+    imageLoading='lazy'
+    paginationPosition='pagRight'
+    id='bottom-slider-banner'
+  />
+  <ColorfulParadise />
+  <Footer />
+</Layout>

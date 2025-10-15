@@ -7,6 +7,7 @@ import Montain from '@/assets/images/mountain-image.webp';
 
 export const topSliderContent: SliderContent =
 {
+  id: 'topSlider',
   slider: [
     {
       image: BacchanalTop,
@@ -27,6 +28,7 @@ export const topSliderContent: SliderContent =
 
 export const singleBanner: SliderContent =
 {
+  id: 'bottomSlider',
   image: BacchanalSingle,
   alt: 'A festive group of people wearing funny animal masks and posing playfully for the camera.'
 }
@@ -52,6 +54,7 @@ export const bottomSliderContent: SliderContent =
 }
 
 export const textImageBacchanalMean: TextImage = {
+  id: 'bacchanalMean',
   image: Cheers,
   width: 851,
   height: 521,
@@ -62,6 +65,7 @@ export const textImageBacchanalMean: TextImage = {
 }
 
 export const textImageBacchanalStory: TextImage = {
+  id: 'bacchanalStory',
   image: Montain,
   width: 510,
   height: 440,

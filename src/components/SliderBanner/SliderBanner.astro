@@ -10,7 +10,7 @@ const {
   isWhitehella,
   imageLoading,
   paginationPosition,
-  id,
+  id: propId,
 }: {
   isSlider?: boolean;
   contentPosition?: string;
@@ -20,25 +20,104 @@ const {
   paginationPosition?: 'pagLeft' | 'pagRight';
   id?: string;
 } = Astro.props;
+
+// locale actual
+const currentLang = Astro.currentLocale ?? 'es';
+
+// cargar traducciones (build-time)
+const translations = import.meta.glob('/src/i18n/*.ts', { eager: true }) as Record<string, any>;
+const messages =
+  translations[`/src/i18n/${currentLang}.ts`]?.default
+  ?? translations[`/src/i18n/${currentLang}.js`]?.default
+  ?? {};
+
+// Determinar effectiveId para lookup en i18n
+let effectiveId: string | undefined;
+if (propId && (messages?.slider?.[propId] || messages?.sliderBanner?.[propId])) {
+  effectiveId = propId;
+} else if (content?.id && (messages?.sliderBanner?.[content.id] || messages?.sliderBanner?.[content.id])) {
+  effectiveId = content.id;
+} else if (propId) {
+  effectiveId = propId;
+} else if (content?.id) {
+  effectiveId = content.id;
+} else {
+  effectiveId = undefined;
+}
+
+// Helper: obtener banner text (bannerSpan / bannerTitle) con fallback
+const getBannerText = (field: 'bannerSpan' | 'bannerTitle') => {
+  // Buscar en varias ubicaciones para compatibilidad:
+  // messages.slider[effectiveId].[field]
+  // messages.sliderBanner[effectiveId].[field]
+  if (effectiveId) {
+    const bySlider = messages?.sliderBanner?.[effectiveId]?.[field];
+    if (typeof bySlider === 'string') return bySlider;
+    const byBanner = messages?.sliderBanner?.[effectiveId]?.[field];
+    if (typeof byBanner === 'string') return byBanner;
+  }
+  // fallback al content o valores por defecto
+  if (content?.[field]) return content[field];
+  if (field === 'bannerSpan') return 'Guatape-Colombia';
+  if (field === 'bannerTitle') return 'El Bacchanal';
+  return '';
+};
+
+// Helper: obtener array de imágenes traducidas (si existe) - busca en varias rutas
+const getTranslatedImagesArray = () => {
+  if (!effectiveId) return null;
+  // Preferencias: messages.slider[effectiveId].slider -> messages.slider[effectiveId].images
+  const m = messages?.slider?.[effectiveId];
+  if (m?.slider && Array.isArray(m.slider)) return m.slider;
+  if (m?.images && Array.isArray(m.images)) return m.images;
+  // fallback buscar en messages.sliderBanner
+  const mb = messages?.sliderBanner?.[effectiveId];
+  if (mb?.slider && Array.isArray(mb.slider)) return mb.slider;
+  if (mb?.images && Array.isArray(mb.images)) return mb.images;
+  return null;
+};
+
+// Helper: obtener alt traducido para slider array por índice
+const getSliderImageAlt = (index: number, fallbackAlt = '') => {
+  const imgs = getTranslatedImagesArray();
+  if (imgs && imgs[index] && typeof imgs[index].alt === 'string') return imgs[index].alt;
+  return fallbackAlt;
+};
+
+// Helper: obtener alt traducido para single banner image (content.image)
+const getSingleImageAlt = (fallbackAlt = '') => {
+  if (!effectiveId) return fallbackAlt;
+  const bySlider = messages?.slider?.[effectiveId]?.alt;
+  if (typeof bySlider === 'string') return bySlider;
+  const byBanner = messages?.sliderBanner?.[effectiveId]?.alt;
+  if (typeof byBanner === 'string') return byBanner;
+  // also look for content.image inside slider arrays (first element) if user stored alt there
+  const imgs = getTranslatedImagesArray();
+  if (imgs && imgs[0] && typeof imgs[0].alt === 'string') return imgs[0].alt;
+  return fallbackAlt;
+};
 ---
 
 <section class='h-[100dvh] overflow-hidden'>
   {
     isSlider ? (
-      <div class='swiper-banner relative h-full' id={id}>
+      <div class='swiper-banner relative h-full' id={propId}>
         <div class='swiper-wrapper'>
-          {content?.slider?.map((item) => (
-            <div class='swiper-slide !h-full'>
-              <Image
-                class='h-full w-full object-cover'
-                src={item.image}
-                alt={item.alt}
-                width={1920}
-                height={911}
-                loading={imageLoading}
-              />
-            </div>
-          ))}
+          {content?.slider?.map((item, idx) => {
+            const altText = getSliderImageAlt(idx, item.alt ?? '');
+            return (
+              <div class='swiper-slide !h-full'>
+                <Image
+                  class='h-full w-full object-cover'
+                  src={item.image}
+                  alt={altText}
+                  width={1920}
+                  height={911}
+                  loading={imageLoading}
+                />
+              </div>
+            );
+          })}
         </div>
         <div class={`${paginationPosition} swiper-pagination !w-fit`} />
         <div
@@ -50,20 +129,20 @@ const {
           ]}
         >
           <span class='text-2xl leading-0 tracking-[13.75px]'>
-            {content?.bannerSpan}
+            {getBannerText('bannerSpan')}
           </span>
           <p class='text-chart-6 text-[75px] leading-[1]'>
-            {content?.bannerTitle}
+            {getBannerText('bannerTitle')}
           </p>
         </div>
       </div>
     ) : (
-      <div class='relative h-full' id={id}>
+      <div class='relative h-full' id={propId}>
         {content?.image && (
           <Image
             class={'h-full w-full object-cover'}
             src={content.image}
-            alt={content.alt ?? ''}
+            alt={getSingleImageAlt(content.alt ?? '')}
             width={1920}
             height={911}
             loading={imageLoading}
@@ -79,9 +158,9 @@ const {
           ]}
         >
           <span class='text-2xl leading-0 tracking-[13.75px]'>
-            Guatape-Colombia
+            {getBannerText('bannerSpan')}
           </span>
-          <p class='text-chart-6 text-[75px] leading-[1]'>El Bacchanal</p>
+          <p class='text-chart-6 text-[75px] leading-[1]'>{getBannerText('bannerTitle')}</p>
         </div>
       </div>
     )
