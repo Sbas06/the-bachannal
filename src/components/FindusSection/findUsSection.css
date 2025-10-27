@@ -27,6 +27,7 @@
   0% {
     box-shadow: 0 0 0 0px #ffffff29;
   }
+
   100% {
     box-shadow: 0 0 0 20px #00000000;
   }
@@ -36,10 +37,81 @@
   0% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10px);
   }
+
   100% {
     transform: translateY(0);
+  }
+}
+
+
+@media screen and (max-width: 1000px) {}
+
+@media screen and (max-width: 767px) {
+  .paragraph-guatape-moment {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    width: 77%;
+  }
+
+  .text-white-bacchanal {
+    font-size: 25px;
+  }
+
+  .guatape-moment-conteiner {
+    width: 100%;
+    max-width: 290px;
+  }
+
+  .text-gradient-bacchanal, .main-title-guatape-moment {
+    font-size: 35px;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .find-us-section {
+    flex-direction: column;
+  }
+
+  .find-us-section {
+    margin-bottom: 400px;
+    margin-top: 350px;
+  }
+
+  .find-us-section {
+    transition: padding 300ms ease, margin-bottom 300ms ease;
+  }
+
+  .text-gradient-guatape-moment {
+    line-height: 300%;
+  }
+
+  .main-title-guatape-moment {
+    line-height: 125%;
+  }
+
+  .container-content-findus {
+    row-gap: 22px;
+  }
+
+}
+
+@media screen and (min-width: 768px) {
+  .guatape-moment-conteiner {
+    min-width: 650px;
+  }
+
+  .text-pertty {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .swiper-findus {
+    max-width: 295px;
   }
 }

@@ -1,0 +1,27 @@
+.footer-nav-container {
+    padding: 10p 10px;
+    font-size: 16px;
+    row-gap: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-nav-container::before {
+    padding: 10p 10px;
+}
+
+.footer-nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.footer-nav-container p {
+    text-align: center;
+}
+
+@media screen and (max-width: 767px) {
+    .footer-nav-container {
+        font-size: 14px;
+    }
+}

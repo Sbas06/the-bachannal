@@ -65,3 +65,68 @@
 .swiper-pagination .swiper-pagination-bullet-active {
   background: #d9d9d9;
 }
+
+@media screen and (max-width: 767px) {
+  .whitehella-style span {
+    font-size: 35px;
+  }
+
+  .whitehella-style p {
+    font-size: 35px;
+  }
+
+  .top-banner-title {
+    font-size: 65px;
+  }
+
+  .top-banner-span {
+    font-size: 21px;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 11.55px;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .top-banner-span {
+    line-height: 125%;
+  }
+
+  .whitehella-style span {
+    line-height: 107%;
+  }
+
+  .whitehella-style p {
+    line-height: 260%;
+  }
+
+  .whitehella-style {
+    text-align: center;
+    min-width: 270px;
+  }
+
+  .center {
+    bottom: 5%;
+    top: 5%;
+    transform: translate(-50%, 42%);
+  }
+
+  .right, .left {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 8%;
+    min-width: 330px;
+  }
+
+  .swiper-pagination.pagLeft, .swiper-pagination.pagRight {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+@media screen and (max-width: 340px) {
+  .right, .left {
+    min-width: auto;
+  }
+}

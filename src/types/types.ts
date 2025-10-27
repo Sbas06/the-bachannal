@@ -4,12 +4,14 @@ export interface SliderContent {
   id?: string;
   bannerSpan?: string;
   bannerTitle?: string;
-  slider?: { image: ImageMetadata; alt: string }[];
+  slider?: SliderImage[];
   image?: ImageMetadata;
+  mobileImage?: ImageMetadata;
   alt?: string;
 }
 export interface SliderImage {
   id?: string;
+  mobileImage?: ImageMetadata;
   image: string  | ImageMetadata; 
   alt?: string;
 }

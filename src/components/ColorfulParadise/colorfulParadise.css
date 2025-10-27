@@ -2,8 +2,30 @@
   animation: drawPath 8.5s ease-in-out alternate infinite;
 }
 
+.colorful-paradise {
+  overflow: hidden;
+}
+
 @keyframes drawPath {
   to {
     stroke-dashoffset: 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .colorful-title {
+    font-size: 45px;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .colorful-title {
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 1023px) {
+  .colorful-paradise-container {
+    column-gap: 9px;
   }
 }

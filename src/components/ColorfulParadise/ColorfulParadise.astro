@@ -34,16 +34,132 @@ const getImageAlt = (item: any, index: number) => {
 <section class='relative pt-20 pb-16'>
   <ColorfulVector />
 
-  <div class='flex flex-col items-center gap-y-28 text-6xl'>
-    <h6 class='font-koulen'>{title}</h6>
-    <div
-      class='grid w-[85%] grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-x-[9px]'
-    >
+  <div class='colorful-paradise flex flex-col items-center gap-y-28 text-6xl'>
+    <h6 class='font-koulen colorful-title'>{title}</h6>
+    
+    <div class='swiper-wrapper grid w-[85%] grid-cols-[repeat(auto-fit,minmax(150px,1fr))] colorful-paradise-container'>
       {
         paradiseMedia.map((item, idx) => (
-          <Image src={item.url} alt={getImageAlt(item, idx)} width={300} height={456} />
+          <div class='swiper-slide flex items-center justify-center'>
+            <Image src={item.url} alt={getImageAlt(item, idx)} width={300} height={456} />
+          </div>
         ))
       }
     </div>
   </div>
 </section>
+
+<script>
+  (function () {
+    const BREAKPOINT = 1024;
+    const DEBOUNCE_MS = 120;
+
+    // Simple debounce
+    function debounce<T extends (...args: any[]) => any>(fn: T, wait: number = DEBOUNCE_MS) {
+      let t: ReturnType<typeof setTimeout> | undefined;
+      return (...args: Parameters<T>): void => {
+        if (t !== undefined) clearTimeout(t);
+        t = setTimeout(() => fn(...args), wait);
+      };
+    }
+
+    // Map to store Swiper instances per wrapper
+    const swiperMap: WeakMap<Element, any> = new WeakMap();
+    
+
+    // Destroys Swiper if it exists
+    function destroySwiperForWrapper(wrapper: Element | null): void {
+      if (!wrapper) return;
+      const inst = swiperMap.get(wrapper);
+      if (!inst) return;
+      if (typeof inst.destroy === 'function') {
+        inst.destroy(true, true); // removes listeners and cleans additional DOM that Swiper may have added
+      }
+      swiperMap.delete(wrapper);
+    }
+
+    // Instance-specific logic
+    function setupInstance(instanceRoot: Element): void {
+      const wrapper = instanceRoot.querySelector('.swiper-wrapper');
+      if (!wrapper) return;
+
+      // save original classes (only the first time)
+      if (!wrapper.hasAttribute('data-orig-class')) {
+        wrapper.setAttribute('data-orig-class', wrapper.className);
+      }
+
+      const slides = Array.from(wrapper.querySelectorAll(':scope > .swiper-slide'));
+      slides.forEach(sl => {
+        if (!sl.hasAttribute('data-orig-class')) {
+          sl.setAttribute('data-orig-class', sl.className);
+        }
+      });
+
+      // Functions to switch
+      function switchToDesktop() {
+        // destroy slider if there is one
+        destroySwiperForWrapper(wrapper);
+
+        // remove classes (only local to this instance)
+        if (!wrapper) return;
+        wrapper.classList.remove('swiper-wrapper');
+        slides.forEach(s => s.classList.remove('swiper-slide', 'flex', 'items-center', 'justify-center'));
+      }
+
+      function switchToMobile() {
+        // restore original classes
+        if (!wrapper) return;
+        wrapper.className = wrapper.getAttribute('data-orig-class') || '';
+
+        slides.forEach(s => {
+          s.className = s.getAttribute('data-orig-class') || '';
+        });
+
+        // initialize Swiper after restoring classes
+        // give it a micro-tick so the DOM reflects changes (avoids race conditions)
+        setTimeout(() => {
+          if (!wrapper) return;
+          initSwiperForWrapper(wrapper);
+        }, 0);
+      }
+
+      function applyAccordingToWidth() {
+        if (window.innerWidth >= BREAKPOINT) {
+          switchToDesktop();
+        } else {
+          switchToMobile();
+        }
+      }
+
+      // Run now and on resize/orientationchange
+      applyAccordingToWidth();
+      const onResize = debounce(applyAccordingToWidth, DEBOUNCE_MS);
+      window.addEventListener('resize', onResize);
+      window.addEventListener('orientationchange', onResize);
+    }
+
+    function initSwiperForWrapper(wrapper: Element): void {
+      // Try to get the Swiper constructor from the global (e.g., if loaded as UMD)
+      const SwiperCtor = (window as any).Swiper ?? (window as any).default?.Swiper;
+      if (typeof SwiperCtor !== 'function') return;
+
+      // Find appropriate container (may vary depending on Swiper integration)
+      const container = wrapper.closest('.colorful-paradise-container') ?? wrapper.parentElement ?? wrapper;
+
+      // Initialize Swiper with basic options intended for mobile
+      try {
+        const swiper = new (SwiperCtor as any)(container, {
+          slidesPerView: 'auto',
+          spaceBetween: 16,
+        });
+        swiperMap.set(wrapper, swiper);
+      } catch (e) {
+      }
+    }
+
+    // Initialize all .colorful-paradise instances on the page
+    const instances = Array.from(document.querySelectorAll('.colorful-paradise'));
+    instances.forEach(setupInstance);
+  })();
+</script>
+
