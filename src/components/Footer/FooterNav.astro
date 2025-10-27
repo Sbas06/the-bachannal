@@ -1,5 +1,6 @@
 ---
 import Gradient from '@/components/Gradient/Gradient.astro';
+import './footer.css';
 
 import { getRelativeLocaleUrl } from "astro:i18n";
 
@@ -24,14 +25,14 @@ const copyright = messages?.footer?.copyright ?? 'El Bacchanal. All rights reser
 
 <Gradient
   as='div'
-  containerClass='flex w-full items-center justify-between px-20 py-8 before:top-0'
+  containerClass='flex w-full items-center justify-between px-14 py-8 before:top-0 footer-nav-container'
   isAnimated
   hasGradient
 >
   <nav>
-    <ul class='flex gap-x-[34px]'>
+    <ul class='flex gap-x-[34px] footer-nav-list'>
     {components.map((c) => (
-      <li>
+      <li class="nav-item-footer-mobile">
         <a href={getRelativeLocaleUrl(currentLang, c.href)}>
           {messages?.footer?.[c.key] ?? c.key}
         </a>

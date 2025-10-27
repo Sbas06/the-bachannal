@@ -17,19 +17,19 @@ const paragraph = messages?.guatapeMoment?.paragraph ?? "At El Bacchanal, you do
 <section
   class="relative flex h-[100dvh] w-full bg-[url('/src/assets/images/guatape-moment-bg.webp')] bg-cover bg-no-repeat"
 >
-  <h4
-    class='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform text-center'
+  <div
+    class='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/1 transform text-center guatape-moment-conteiner'
   >
-    <span class='font-koulen text-[50px]'>{titlePart1}</span>
+    <span class='font-koulen text-[50px] bottom-5 main-title-guatape-moment'>{titlePart1}</span>
     <p
-      class='font-whitehella text-gradient-bacchanal relative bottom-5 text-[50px] leading-[2.2]'
+      class='font-whitehella text-gradient-bacchanal text-gradient-guatape-moment relative bottom-5 text-[50px] leading-[2.2]'
     >
       {titlePart2}
     </p>
-  </h4>
+  </div>
 
   <p
-    class='absolute bottom-28 left-1/2 mb-4 max-w-[700px] -translate-x-1/2 transform text-center text-[18px] text-pretty'
+    class='absolute bottom-28 left-1/2 mb-4 max-w-[700px] -translate-x-1/2 transform text-center text-[18px] text-pretty paragraph-guatape-moment'
   >
     {paragraph}
   </p>

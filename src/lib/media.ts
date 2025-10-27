@@ -1,7 +1,10 @@
 import type { SliderContent, TextImage } from "@/types/types"
 import BacchanalTop from '@/assets/images/bacchanal-top-slider.webp'
+import BacchanalTopMobile from '@/assets/images/bacchanal-top-slider-mobile.webp';
 import BacchanalSingle from '@/assets/images/single-slider.webp'
+import BacchanalSingleMobile from '@/assets/images/single-slider-mobile.webp';
 import BacchanalBottom from '@/assets/images/bacchanal-bottom-slider.webp'
+import BacchanalBottomMobile from '@/assets/images/bacchanal-bottom-slider-mobile.webp';
 import Cheers from '@/assets/images/whatdoes.webp';
 import Montain from '@/assets/images/mountain-image.webp';
 
@@ -11,14 +14,17 @@ export const topSliderContent: SliderContent =
   slider: [
     {
       image: BacchanalTop,
+      mobileImage: BacchanalTopMobile,
       alt: "A vibrant and colorful marquee and neon sign for 'Bacchanal Restaurante & Bar' glowing at night."
     },
     {
       image: BacchanalSingle,
+      mobileImage: BacchanalSingleMobile,
       alt: 'A festive group of people wearing funny animal masks and posing playfully for the camera.'
     },
     {
       image: BacchanalBottom,
+      mobileImage: BacchanalBottomMobile,
       alt: 'A smiling man and woman hugging each other warmly in a candid, black and white photograph.'
     },
   ],
@@ -30,6 +36,7 @@ export const singleBanner: SliderContent =
 {
   id: 'bottomSlider',
   image: BacchanalSingle,
+  mobileImage: BacchanalSingleMobile,
   alt: 'A festive group of people wearing funny animal masks and posing playfully for the camera.'
 }
 
@@ -38,14 +45,17 @@ export const bottomSliderContent: SliderContent =
   slider: [
     {
       image: BacchanalBottom,
+      mobileImage: BacchanalBottomMobile,
       alt: 'A smiling man and woman hugging each other warmly in a candid, black and white photograph.'
     },
     {
       image: BacchanalTop,
+      mobileImage: BacchanalTopMobile,
       alt: "A vibrant and colorful marquee and neon sign for 'Bacchanal Restaurante & Bar' glowing at night."
     },
     {
       image: BacchanalSingle,
+      mobileImage: BacchanalSingleMobile,
       alt: 'A festive group of people wearing funny animal masks and posing playfully for the camera.'
     },
   ],

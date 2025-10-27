@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import Button from '@/components/Button/Button.astro';
 import MainIcon from '@/assets/images/bacchanal-icon-image.webp';
 import MapSvg from '@/components/FindusSection/MapSvg.astro';
+import MapSvg2 from '@/components/FindusSection/MapSvg2.astro';
 
 import { paradiseMedia } from '@/lib/utils';
 import '@/components/FindusSection/findUsSection.css';
@@ -38,9 +39,32 @@ const getSlideAlt = (item: any, index: number) => {
 };
 ---
 
-<section class='flex h-[100dvh] items-center justify-center'>
+<section class='relative flex h-[100dvh] items-center justify-center find-us-section'>
+  <div class="slider-showcase pointer-events-none lg:invisible lg:absolute lg:left-0 lg:-translate-x-full lg:-rotate-12 lg:bg-white bg-white px-3 pt-3 pb-[70px] lg:transition-all lg:duration-500 lg:ease-in-out lg:z-10">
+    <div
+      class='swiper-findus relative max-h-[465px] max-w-[400px] overflow-hidden'
+    >
+      <div class='swiper-wrapper'>
+        {
+          paradiseMedia.map((item) => (
+            <div class='swiper-slide'>
+              <Image src={item.url} width={400} height={465} alt={item.alt} />
+            </div>
+          ))
+        }
+      </div>
+      <div class='swiper-pagination'></div>
+    </div>
+  </div>
+
   <div class='relative'>
-    <MapSvg />
+    <div class="block sm:hidden">
+      <MapSvg2 />
+    </div>
+
+    <div class="hidden sm:block">
+      <MapSvg />
+    </div>
 
     <div
       class='location-container absolute right-[20%] bottom-[5%] flex translate-x-[-48%] translate-y-[-20%] cursor-pointer flex-col items-center justify-center gap-y-5'
@@ -76,9 +100,11 @@ const getSlideAlt = (item: any, index: number) => {
       <div class='circle'></div>
     </div>
   </div>
-  <div class='flex flex-col items-center gap-y-[50px]'>
+
+  
+  <div class='flex flex-col items-center gap-y-[50px] container-content-findus'>
     <h3 class='text-center'>
-      <span class='font-koulen text-[40px]'>{titlePart1}</span>
+      <span class='font-koulen text-white-bacchanal text-[40px]'>{titlePart1}</span>
       <p
         class='font-whitehella text-gradient-bacchanal px-5 text-[50px] leading-[2.5]'
       >
@@ -97,43 +123,62 @@ const getSlideAlt = (item: any, index: number) => {
     />
   </div>
 
-  <div
-    class='slider-showcase pointer-events-none invisible absolute left-0 -translate-x-full -rotate-12 bg-white px-3 pt-3 pb-[70px] transition-all duration-500 ease-in-out'
-  >
-    <div
-      class='swiper-findus relative max-h-[465px] max-w-[400px] overflow-hidden'
-    >
-      <div class='swiper-wrapper'>
-        {
-          paradiseMedia.map((item) => (
-            <div class='swiper-slide'>
-              <Image src={item.url} width={400} height={465} alt={item.alt} />
-            </div>
-          ))
-        }
-      </div>
-      <div class='swiper-pagination'></div>
-    </div>
-  </div>
+  
 </section>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    const MOBILE_BREAKPOINT = 1024;
     const locationContainer = document.querySelector('.location-container');
     const sliderShowcase = document.querySelector('.slider-showcase');
 
-    locationContainer?.addEventListener('mouseenter', () => {
-      sliderShowcase?.classList.remove('invisible');
-      sliderShowcase?.classList.remove('-translate-x-full');
-      sliderShowcase?.classList.remove('-rotate-12');
-    });
+    // clases con prefijo lg: que queremos alternar
+    const LG_INVISIBLE = 'lg:invisible';
+    const LG_TRANSLATE = 'lg:-translate-x-full';
+    const LG_ROTATE = 'lg:-rotate-12';
 
-    locationContainer?.addEventListener('mouseleave', () => {
+    function showSlider() {
+      // quitamos las clases lg: para que el slider "aparezca" en desktop
+      sliderShowcase?.classList.remove(LG_INVISIBLE, LG_TRANSLATE, LG_ROTATE);
+    }
+
+    function hideSliderDelayed() {
       setTimeout(() => {
-        sliderShowcase?.classList.add('invisible');
-        sliderShowcase?.classList.add('-translate-x-full');
-        sliderShowcase?.classList.add('-rotate-12');
+        // las volvemos a poner (solo tendrán efecto si el viewport es >= 1024)
+        sliderShowcase?.classList.add(LG_INVISIBLE, LG_TRANSLATE, LG_ROTATE);
       }, 2000);
-    });
+    }
+
+    function onMouseEnter() { showSlider(); }
+    function onMouseLeave() { hideSliderDelayed(); }
+
+    function enableHover() {
+      if (!locationContainer) return;
+      locationContainer.addEventListener('mouseenter', onMouseEnter);
+      locationContainer.addEventListener('mouseleave', onMouseLeave);
+      // aseguramos estado inicial oculto en desktop
+      sliderShowcase?.classList.add(LG_INVISIBLE, LG_TRANSLATE, LG_ROTATE);
+    }
+
+    function disableHover() {
+      if (!locationContainer) return;
+      locationContainer.removeEventListener('mouseenter', onMouseEnter);
+      locationContainer.removeEventListener('mouseleave', onMouseLeave);
+      // en mobile mantenemos las utilidades desktop en el DOM (no afectan),
+      // pero podemos quitar para que el elemento no dependa de ellas:
+      sliderShowcase?.classList.remove(LG_INVISIBLE, LG_TRANSLATE, LG_ROTATE);
+    }
+
+    function applyBehaviorAccordingToWidth() {
+      if (window.innerWidth >= MOBILE_BREAKPOINT) {
+        enableHover();
+      } else {
+        disableHover();
+      }
+    }
+
+    applyBehaviorAccordingToWidth();
+    window.addEventListener('resize', applyBehaviorAccordingToWidth);
   });
 </script>
+

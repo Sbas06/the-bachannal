@@ -1,5 +1,6 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
+import '@/components/NavBar/navMenu.css';
 
 const currentLang = Astro.currentLocale ?? 'es';
 
@@ -17,7 +18,7 @@ const components = [
 ];
 ---
 
-<nav>
+<!-- <nav>
   <ul class="flex gap-x-[34px]">
     {components.map((c) => (
       <li>
@@ -27,4 +28,77 @@ const components = [
       </li>
     ))}
   </ul>
+</nav> -->
+
+<nav class="nav-root">
+  <div class="nav-desktop">
+    <ul class="flex gap-x-[34px]">
+    {components.map((c) => (
+      <li>
+        <a href={getRelativeLocaleUrl(currentLang, c.href)}>
+          {messages?.navbar?.[c.key] ?? c.key}
+        </a>
+      </li>
+    ))}
+  </ul>
+  </div>
+
+  <div class="nav-mobile" aria-hidden="false">
+    <details class="mobile-menu" role="menu">
+      <summary class="hamburger-button" aria-label="Abrir menú" aria-haspopup="true" >
+        <span class="sr-only">Abrir menú</span>
+        <span class="hamburger-bar" aria-hidden="true"></span>
+        <span class="hamburger-bar" aria-hidden="true"></span>
+        <span class="hamburger-bar" aria-hidden="true"></span>
+      </summary>
+
+      <div class="panel" role="menu" aria-labelledby="hamburgerButton">
+        <button class="close-button" type="button" aria-label="Cerrar menú" title="Cerrar menú">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+        <ul class="nav-list-mobile">
+          {components.map((c) => (
+            <li class="nav-item-mobile" >
+              <a
+                class="nav-link-mobile"
+                href={getRelativeLocaleUrl(currentLang, c.href)}
+              >
+                {messages?.navbar?.[c.key] ?? c.key}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </details>
+  </div>
 </nav>
+
+<!-- Optional: auto-close details when a nav link is clicked (good for SPA-like behavior or anchors) -->
+<script type="module">
+  document.addEventListener('DOMContentLoaded', () => {
+    // botón X para cerrar
+    document.querySelectorAll('.mobile-menu .close-button').forEach(btn => {
+      btn.addEventListener('click', (ev) => {
+        const d = btn instanceof HTMLElement ? btn.closest('details') : null;
+        if (d) {
+          if (d instanceof HTMLElement) d.removeAttribute('open');
+          const hamb = d.querySelector('#hamburgerButton');
+          if (hamb instanceof HTMLElement) hamb.focus();
+        }
+      });
+    });
+
+    // cerrar panel con Escape si está abierto
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' || e.key === 'Esc') {
+        const d = document.querySelector('.mobile-menu[open]');
+        if (d) {
+          if (d instanceof HTMLElement) d.removeAttribute('open');
+          const hamb = d.querySelector('#hamburgerButton');
+          if (hamb instanceof HTMLElement) hamb.focus();
+        }
+      }
+    });
+  });
+</script>

@@ -30,14 +30,22 @@ const getTranslation = (field: keyof TextImage) => {
   const translated = messages?.textImage?.[id]?.[field as string];
   return translated ?? content?.[field as keyof TextImage] ?? '';
 };
+
+// small slug util to crear clase segura
+const slug = (s?: string) => String(s ?? 'default').replace(/\s+/g, '-').replace(/[^a-zA-Z0-9\-_]/g, '').toLowerCase();
+
+const variantClass = `text-image--${slug(content?.id ?? content?.title ?? 'default')}`;
+
+// combine to pass to Gradient (usa containerClass que ya tienes)
+const gradientContainerClass = `relative flex h-[100dvh] justify-center ${variantClass}`;
 ---
 
 <Gradient
   as='section'
-  containerClass='relative flex h-[100dvh] justify-center'
+  containerClass={gradientContainerClass}
   hasGradient={hasGradient}
 >
-  <div class={`flex ${direction} items-center justify-center xl:gap-x-20 2xl:gap-x-28`}>
+  <div class={`flex ${direction} items-center justify-center xl:gap-x-20 2xl:gap-x-28 text-image-content`}>
     {
       content?.image && (
         <Image
@@ -53,9 +61,8 @@ const getTranslation = (field: keyof TextImage) => {
     <div>
       <div class='flex flex-col items-center 2xl:w-[590px]'>
         <h2 class='text-center'>
-          <span class='font-koulen text-[40px]'>{getTranslation('title')}</span>
-          <p class='font-whitehella text-gradient-bacchanal text-[50px] leading-[2.2]'>
-            {getTranslation('highlightText')}
+          <span class='font-koulen text-white-bacchanal text-[40px]'>{getTranslation('title')}</span>
+          <p class='font-whitehella text-gradient-bacchanal text-[50px] leading-[2.2] title-text-image'>{getTranslation('highlightText')}
           </p>
         </h2>
 
