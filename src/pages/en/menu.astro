@@ -3,10 +3,14 @@ import Layout from '@/layouts/Layout.astro';
 import NavBar from '@/components/NavBar/NavBar.astro';
 import Footer from '@/components/Footer/Footer.astro';
 import PDFViewer from '@/components/PDFViewer/PDFViewer.astro';
+
+import {
+  PdfImage,
+} from '@/lib/media';
 ---
 
 <Layout>
   <NavBar />
-  <PDFViewer buttonText="Back to Home" outWeb={false} />
+  <PDFViewer content={PdfImage} buttonText="Back to Home" outWeb={false} />
   <Footer />
 </Layout>

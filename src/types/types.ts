@@ -35,3 +35,11 @@ export interface TextImage {
   highlightText?: string;
   complementInfo?: string;
 }
+
+export interface PDFImage {
+  id?: string;
+  image: ImageMetadata;
+  width: number;
+  height: number;
+  alt?: string;
+}

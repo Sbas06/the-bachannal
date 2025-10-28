@@ -6,12 +6,10 @@ export default {
     },
     navbar: {
         menu: "Menú",
-        deliveryMenu: "Menú de entrega",
         aboutUs: "Sobre nosotros",
     },
     footer: {
         menu: "Menú",
-        deliveryMenu: "Menú de entrega",
         aboutUs: "Sobre nosotros",
         copyright: "El Bacchanal. Todos los derechos reservados"
     },
@@ -136,20 +134,15 @@ export default {
     pdfViewer: {
       fallbackTitle: 'PDF sobre los menús.',
       fallbackMessage: 'Puedes abrir el PDF en una nueva pestaña para verlo',
-      pdfFood: 'PDF del menú de comidas',
-      pdfDrink: 'PDF del menú de bebidas',
-      openBtn: 'Abrir PDF',
+      pdfFood: 'Menú Comidas',
+      pdfDrink: 'Menú bebidas',
+      openBtn: 'Ver menú',
       langLabel: 'Idioma',
       saveBtn: 'Guardar'
     },
-    home: {
-        title: "Bienvenido a Astro",
-        subtitle: "Un framework rápido para la web",
-        heroText: "Explora el universo con Astro",
-        infoText: "Este sitio está completamente traducido.",
-    },
-    about: {
-        title: "Acerca de este proyecto",
-        content: "Este sitio es un ejemplo de internacionalización con Astro.",
+    pdfImage: {
+    pdfImageDrinks: {
+      alt: 'Two cocktails in a short glass with a skull design, one light with mint and one dark.'
     }
+  }
 };
