@@ -1,0 +1,73 @@
+---
+// HeaderAbout.astro
+import type { ImageMetadata } from 'astro';
+import type { MomentsAboutImage } from '@/types/types';
+import { momentsAboutImage as defaultMomentsImage } from '@/lib/media';
+import './aboutMoments.css'; // css
+// Props
+const {
+  content: incomingContent,
+  propId,
+  imageLoading = 'lazy'
+}: {
+  content?: MomentsAboutImage;
+  propId?: string;
+  imageLoading?: 'eager' | 'lazy';
+} = Astro.props;
+
+// Use passed content or default
+const content: MomentsAboutImage = incomingContent ?? defaultMomentsImage;
+
+// i18n / textos (mantengo tu lógica adaptada)
+const currentLang = Astro.currentLocale ?? 'es';
+const translations = import.meta.glob('/src/i18n/*.ts', { eager: true }) as Record<string, any>;
+const messages = translations[`/src/i18n/${currentLang}.ts`]?.default
+  ?? translations[`/src/i18n/${currentLang}.js`]?.default
+  ?? {};
+const am = messages?.aboutMoments ?? {};
+const text = am.text ?? 'Share Your Moments: Tag us in your photos!';
+
+// helper: ImageMetadata|string -> string (url)
+const imageToSrc = (img?: ImageMetadata | string): string => {
+  if (!img) return '';
+  return typeof img === 'string' ? img : (img.src ?? '');
+};
+
+// helper alt
+const getSingleImageAlt = (fallback = '') => content?.alt ?? fallback;
+---
+
+<section data-lang={currentLang} class="moments-about-root flex flex-col lg:flex-row h-[100dvh]">
+
+  <div
+    id={propId}
+    class="relative flex-1"
+  >
+    {content?.image && (
+      <picture class="absolute inset-0 block h-full w-full">
+        <source
+          media="(max-width: 990px)"
+          srcset={ imageToSrc(content.mobileImage) || imageToSrc(content.image) }
+        />
+        <source
+          media="(min-width: 991px)"
+          srcset={ imageToSrc(content.image) }
+        />
+        <img
+          class="absolute inset-0 h-full w-full object-cover"
+          src={ imageToSrc(content.image) }
+          alt={ getSingleImageAlt('Header about image') }
+          width={1920}
+          height={911}
+          loading={imageLoading}
+        />
+      </picture>
+    )}
+
+    <h2 class="font-koulen text-white absolute z-1 text-[45px] leading-[1] uppercase bottom-[102px] left-[91px]
+      max-w-[610px] w-[400px] max-md:left-10 max-md:bottom-[60px]max-md:max-w-[500px] max-md:w-[400px] max-sm:left-8 max-sm:bottom-14
+      max-sm:max-w-xs max-sm:leading-[1.1] max-sm:w-[220px]">
+      {text}
+    </h2>
+  </div>
+</section>

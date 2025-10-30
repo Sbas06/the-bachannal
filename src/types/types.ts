@@ -43,3 +43,24 @@ export interface PDFImage {
   height: number;
   alt?: string;
 }
+
+export interface HeaderAboutImage {
+  id?: string;
+  image: ImageMetadata | string;
+  mobileImage?: ImageMetadata | string;
+  alt?: string;
+}
+
+export interface StoryAboutImage {
+  id?: string;
+  image: ImageMetadata | string;
+  mobileImage?: ImageMetadata | string;
+  alt?: string;
+}
+
+export interface MomentsAboutImage {
+  id?: string;
+  image: ImageMetadata | string;
+  mobileImage?: ImageMetadata | string;
+  alt?: string;
+}

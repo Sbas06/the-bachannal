@@ -1,0 +1,40 @@
+.container-paragraph-about-header {
+  row-gap: 31px;
+}
+
+.header-about-root {
+  row-gap: 60px;
+  margin-top: 100px;
+}
+
+@media screen and (min-width: 768px) {
+  .text-paragraph-about-header {
+    font-size: 18px;
+  }
+
+  .about-title-more {
+    font-size: 45px;
+  }
+
+}
+
+
+@media screen and (min-width: 1024px) {
+  .header-about-image {
+    max-width: 640px;
+  }
+
+  .container-paragraph-about-header {
+    row-gap: 49px;
+  }
+
+  .header-about-root {
+    margin-top: 0px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .text-area-about-header {
+    padding-left: 100px;
+  }
+}

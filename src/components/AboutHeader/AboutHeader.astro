@@ -1,0 +1,81 @@
+---
+// HeaderAbout.astro
+import type { ImageMetadata } from 'astro';
+import type { HeaderAboutImage } from '@/types/types';
+import { headerAboutImage as defaultHeaderImage } from '@/lib/media';
+import './aboutHeader.css'; // tu css
+// Props
+const {
+  content: incomingContent,
+  propId,
+  imageLoading = 'lazy'
+}: {
+  content?: HeaderAboutImage;
+  propId?: string;
+  imageLoading?: 'eager' | 'lazy';
+} = Astro.props;
+
+// Use passed content or default
+const content: HeaderAboutImage = incomingContent ?? defaultHeaderImage;
+
+// i18n / textos (mantengo tu lógica adaptada)
+const currentLang = Astro.currentLocale ?? 'es';
+const translations = import.meta.glob('/src/i18n/*.ts', { eager: true }) as Record<string, any>;
+const messages = translations[`/src/i18n/${currentLang}.ts`]?.default
+  ?? translations[`/src/i18n/${currentLang}.js`]?.default
+  ?? {};
+const ah = messages?.aboutHeader ?? {};
+const titlePart1 = ah.titlePart1 ?? 'More Than Just';
+const titlePart2 = ah.titlePart2 ?? 'Meal';
+const subtitle = ah.subtitle ?? 'OUR VISION';
+const paragraph1 = ah.paragraph1 ?? 'To be a vibrant, welcoming home away from home in the heart of Guatape. We dreamed of a place where the walls are bursting with color, the air is filled with laughter, and every detail is crafted with creativity and heart.';
+const paragraph2 = ah.paragraph2 ?? "For us, it's not just about serving great food and drinks; it's about creating moments of joy and connection. We envision a space where locals feel like family and travelers feel instantly at ease, all brought together by a shared love for fantastic flavors, unique cocktails, and genuine, friendly service. This is our happy place, and we're so excited to share it with you.";
+
+// helper: ImageMetadata|string -> string (url)
+const imageToSrc = (img?: ImageMetadata | string): string => {
+  if (!img) return '';
+  return typeof img === 'string' ? img : (img.src ?? '');
+};
+
+// helper alt
+const getSingleImageAlt = (fallback = '') => content?.alt ?? fallback;
+---
+<div data-lang={currentLang} class="header-about-root flex flex-col lg:flex-row lg:h-[100dvh] lg:justify-between">
+  <div class="text-area-about-header flex flex-col lg:justify-evenly justify-center lg:pr-5 lg:pl-28 max-md:gap-20 md:px-8">
+    <div class="flex flex-col justify-center justify-center items-center lg:items-start max-md:items-center max-md:text-center">
+        <h1 class="font-koulen text-white uppercase text-[28px] leading-[1] about-title-more">{titlePart1}</h1>
+        <span class="font-whitehella text-gradient-bacchanal leading-[2.4] text-[50px]">{titlePart2}</span>
+    </div>
+
+    <div class="flex relative flex-col gap-12 items-start self-stretch max-w-[900px] max-md:gap-9 max-md:max-w-full flex container-paragraph-about-header max-md:px-8">
+      <div class="flex relative flex-col gap-2 items-start self-stretch">
+        <h2 class="relative font-koulen text-[22px] text-white uppercase max-md:text-xl max-sm:text-lg">{subtitle}</h2>
+        <p class="relative self-stretch text-lg tracking-normal leading-6 text-white text-[14px] text-paragraph-about-header">{paragraph1}</p>
+      </div>
+      <p class="relative self-stretch text-lg tracking-normal leading-6 text-white text-[14px] text-paragraph-about-header">{paragraph2}</p>
+    </div>
+  </div>
+
+  <div class='relative h-full' id={propId}>
+    {content?.image && (
+      <picture class="h-full w-full block">
+        <source
+          media="(max-width: 990px)"
+          srcset={ imageToSrc(content.mobileImage) || imageToSrc(content.image) }
+        />
+        <source
+          media="(min-width: 991px)"
+          srcset={ imageToSrc(content.image) }
+        />
+        <img
+          class="h-full w-full object-cover header-about-image"
+          src={ imageToSrc(content.image) }
+          alt={ getSingleImageAlt('Header about image') }
+          width={1920}
+          height={911}
+          loading={imageLoading}
+        />
+      </picture>
+    )}
+  </div>
+</div>

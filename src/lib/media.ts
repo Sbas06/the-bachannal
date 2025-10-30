@@ -1,4 +1,4 @@
-import type { SliderContent, TextImage, PDFImage } from "@/types/types"
+import type { SliderContent, TextImage, PDFImage, HeaderAboutImage, StoryAboutImage, MomentsAboutImage } from "@/types/types"
 import BacchanalTop from '@/assets/images/bacchanal-top-slider.webp'
 import BacchanalTopMobile from '@/assets/images/bacchanal-top-slider-mobile.webp';
 import BacchanalSingle from '@/assets/images/single-slider.webp'
@@ -8,6 +8,12 @@ import BacchanalBottomMobile from '@/assets/images/bacchanal-bottom-slider-mobil
 import Cheers from '@/assets/images/whatdoes.webp';
 import Montain from '@/assets/images/mountain-image.webp';
 import Drinks from '@/assets/images/PDF-viewer-image.webp';
+import DesktopHeader from '@/assets/images/header-about-image-desktop.webp';
+import MobileHeader from '@/assets/images/header-about-image-mobile.webp';
+import GuatapeMoment from '@/assets/images/guatape-moment-bg.webp';
+import DesktopMoments from '@/assets/images/about-moments-desktop.webp';
+import MobileMoments from '@/assets/images/about-moments-mobile.webp';
+
 
 export const topSliderContent: SliderContent =
 {
@@ -92,4 +98,24 @@ export const PdfImage: PDFImage = {
   width: 280,
   height: 440,
   alt: 'A drinks skuuuuullll.'
+}
+
+export const headerAboutImage: HeaderAboutImage = {
+  id: 'hedaerAboutImage',
+  image: DesktopHeader,
+  mobileImage: MobileHeader,
+  alt: 'Image shake.'
+}
+
+export const storyAboutImage: StoryAboutImage = {
+  id: 'storyAboutImage',
+  image: GuatapeMoment,
+  alt: 'Image shake.'
+}
+
+export const momentsAboutImage: MomentsAboutImage = {
+  id: 'hedaerAboutImage',
+  image: DesktopMoments,
+  mobileImage: MobileMoments,
+  alt: 'Image shake.'
 }

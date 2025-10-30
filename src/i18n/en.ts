@@ -141,8 +141,22 @@ export default {
       saveBtn: 'Save'
     },
     pdfImage: {
-    pdfImageDrinks: {
-      alt: 'Dos cócteles en vaso corto con diseño de calavera, uno claro con menta y otro oscuro.'
+      pdfImageDrinks: {
+        alt: 'Two cocktails in a short glass with a skull design, one light with mint and one dark.'
+      }
+    },
+    aboutHeader: {
+      titlePart1: 'More Than Just',
+      titlePart2: 'Meal',
+      subtitle: "Our Vision",
+      paragraph1: "To be a vibrant, welcoming home away from home in the heart of Guatape. We dreamed of a place where the walls are bursting with color, the air is filled with laughter, and every detail is crafted with creativity and heart.",
+      paragraph2: "For us, it's not just about serving great food and drinks; it's about creating moments of joy and connection. We envision a space where locals feel like family and travelers feel instantly at ease, all brought together by a shared love for fantastic flavors, unique cocktails, and genuine, friendly service. This is our happy place, and we're so excited to share it with you."
+    },
+    aboutStory: {
+      title: 'Come Be a Part of Our Story!',
+      paragraph: "Our doors are open, and our biggest dream is to fill this colorful space with your smiles and stories. We've built this place for you, and we want you to be a part of it!",
+    },
+    aboutMoments: {
+      text: "Share Your Moments: Tag us in your photos!"
     }
-  }
 };
