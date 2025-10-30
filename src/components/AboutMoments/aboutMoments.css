@@ -1,0 +1,9 @@
+.moments-about-root {
+  margin-bottom: 60px;
+}
+
+@media screen and (min-width: 1024px) {
+  .moments-about-root {
+    margin-bottom: 20px;
+  }
+}

@@ -35,3 +35,32 @@ export interface TextImage {
   highlightText?: string;
   complementInfo?: string;
 }
+
+export interface PDFImage {
+  id?: string;
+  image: ImageMetadata;
+  width: number;
+  height: number;
+  alt?: string;
+}
+
+export interface HeaderAboutImage {
+  id?: string;
+  image: ImageMetadata | string;
+  mobileImage?: ImageMetadata | string;
+  alt?: string;
+}
+
+export interface StoryAboutImage {
+  id?: string;
+  image: ImageMetadata | string;
+  mobileImage?: ImageMetadata | string;
+  alt?: string;
+}
+
+export interface MomentsAboutImage {
+  id?: string;
+  image: ImageMetadata | string;
+  mobileImage?: ImageMetadata | string;
+  alt?: string;
+}

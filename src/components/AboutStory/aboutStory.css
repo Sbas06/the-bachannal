@@ -1,0 +1,26 @@
+.text-story-container {
+  background-color: #F3BD3E;
+  min-height: 400px;
+}
+
+.text-paragraph-about-header {
+  font-family: 'Geist', sans-serif;
+}
+
+@media screen and (min-width: 768px) {
+  .text-paragraph-about-story {
+    font-size: 17px;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .story-image-container {
+    display: none !important;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .text-story-container {
+    max-width: 640px;
+  }
+}

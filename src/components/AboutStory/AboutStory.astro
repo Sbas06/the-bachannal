@@ -1,0 +1,84 @@
+---
+// HeaderAbout.astro
+import type { ImageMetadata } from 'astro';
+import type { StoryAboutImage } from '@/types/types';
+import { storyAboutImage as defaultStoryImage } from '@/lib/media';
+import './aboutStory.css'; //css
+// Props
+const {
+  content: incomingContent,
+  propId,
+  imageLoading = 'lazy'
+}: {
+  content?: StoryAboutImage;
+  propId?: string;
+  imageLoading?: 'eager' | 'lazy';
+} = Astro.props;
+
+// Use passed content or default
+const content: StoryAboutImage = incomingContent ?? defaultStoryImage;
+
+// i18n / texts
+const currentLang = Astro.currentLocale ?? 'es';
+const translations = import.meta.glob('/src/i18n/*.ts', { eager: true }) as Record<string, any>;
+const messages = translations[`/src/i18n/${currentLang}.ts`]?.default
+  ?? translations[`/src/i18n/${currentLang}.js`]?.default
+  ?? {};
+const ah = messages?.aboutStory ?? {};
+const title = ah.title ?? 'Come Be a Part of Our Story!';
+const paragraph = ah.paragraph ?? "Our doors are open, and our biggest dream is to fill this colorful space with your smiles and stories. We've built this place for you, and we want you to be a part of it!";
+
+// helper: ImageMetadata|string -> string (url)
+const imageToSrc = (img?: ImageMetadata | string): string => {
+  if (!img) return '';
+  return typeof img === 'string' ? img : (img.src ?? '');
+};
+
+// helper alt
+const getSingleImageAlt = (fallback = '') => content?.alt ?? fallback;
+---
+
+  <div class="section-story flex lg:flex-row lg:h-[100dvh]">
+
+      <div class='relative h-full story-image-container' id={propId}>
+        {content?.image && (
+          <picture class="h-full w-full block">
+            <source
+              media="(max-width: 990px)"
+              srcset={ imageToSrc(content.mobileImage) || imageToSrc(content.image) }
+            />
+            <source
+              media="(min-width: 991px)"
+              srcset={ imageToSrc(content.image) }
+            />
+            <img
+              class="h-full w-full object-cover story-about-image"
+              src={ imageToSrc(content.image) }
+              alt={ getSingleImageAlt('Story about image') }
+              width={1920}
+              height={911}
+              loading={imageLoading}
+            />
+          </picture>
+        )}
+      </div>
+
+    <div class="flex flex-col text-story-container justify-between lg:justify-around px-15 py-13">
+      <div class="text-5xl text-black">
+        <h1 class="font-koulen relative self-stretch text-[45px] tracking-tighter leading-[0.9] text-black uppercase text-left">
+          {title}
+        </h1>
+      </div>
+        <div class="flex relative flex-col gap-2 items-start self-stretch" >
+
+        <div class="text-lg text-black">
+          <p class="relative self-stretch text-[15px] tracking-normal leading-5 text-black text-left text-paragraph-about-story">
+            {paragraph}
+          </p>
+        </div>
+      </div>
+
+      
+  </div>
+
+</div>

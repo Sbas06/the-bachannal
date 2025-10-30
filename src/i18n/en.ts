@@ -8,12 +8,10 @@ export default {
     },
     navbar: {
         menu: "Menu",
-        deliveryMenu: "Delivery Menu",
         aboutUs: "About Us",
     },
     footer: {
         menu: "Menu",
-        deliveryMenu: "Delivery Menu",
         aboutUs: "About Us",
         copyright: "El Bacchanal, All rights reserved"
     },
@@ -136,20 +134,29 @@ export default {
     pdfViewer: {
       fallbackTitle: 'PDF about the menus.',
       fallbackMessage: 'You can open the PDF in a new window to view it',
-      pdfFood: 'Food Menu PDF',
-      pdfDrink: 'Drink Menu PDF',
+      pdfFood: 'Food Menu',
+      pdfDrink: 'Drink Menu',
       openBtn: 'Open PDF',
       langLabel: 'Language',
       saveBtn: 'Save'
     },
-    home: {
-        title: "Welcome to Astro",
-        subtitle: "A fast framework for the web",
-        heroText: "Explore the universe with Astro",
-        infoText: "This site is fully translated.",
+    pdfImage: {
+      pdfImageDrinks: {
+        alt: 'Two cocktails in a short glass with a skull design, one light with mint and one dark.'
+      }
     },
-    about: {
-        title: "About this project",
-        content: "This site is an example of internationalization with Astro.",
+    aboutHeader: {
+      titlePart1: 'More Than Just',
+      titlePart2: 'Meal',
+      subtitle: "Our Vision",
+      paragraph1: "To be a vibrant, welcoming home away from home in the heart of Guatape. We dreamed of a place where the walls are bursting with color, the air is filled with laughter, and every detail is crafted with creativity and heart.",
+      paragraph2: "For us, it's not just about serving great food and drinks; it's about creating moments of joy and connection. We envision a space where locals feel like family and travelers feel instantly at ease, all brought together by a shared love for fantastic flavors, unique cocktails, and genuine, friendly service. This is our happy place, and we're so excited to share it with you."
+    },
+    aboutStory: {
+      title: 'Come Be a Part of Our Story!',
+      paragraph: "Our doors are open, and our biggest dream is to fill this colorful space with your smiles and stories. We've built this place for you, and we want you to be a part of it!",
+    },
+    aboutMoments: {
+      text: "Share Your Moments: Tag us in your photos!"
     }
 };

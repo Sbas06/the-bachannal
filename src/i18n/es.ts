@@ -6,12 +6,10 @@ export default {
     },
     navbar: {
         menu: "Menú",
-        deliveryMenu: "Menú de entrega",
         aboutUs: "Sobre nosotros",
     },
     footer: {
         menu: "Menú",
-        deliveryMenu: "Menú de entrega",
         aboutUs: "Sobre nosotros",
         copyright: "El Bacchanal. Todos los derechos reservados"
     },
@@ -136,20 +134,29 @@ export default {
     pdfViewer: {
       fallbackTitle: 'PDF sobre los menús.',
       fallbackMessage: 'Puedes abrir el PDF en una nueva pestaña para verlo',
-      pdfFood: 'PDF del menú de comidas',
-      pdfDrink: 'PDF del menú de bebidas',
-      openBtn: 'Abrir PDF',
+      pdfFood: 'Menú Comidas',
+      pdfDrink: 'Menú bebidas',
+      openBtn: 'Ver menú',
       langLabel: 'Idioma',
       saveBtn: 'Guardar'
     },
-    home: {
-        title: "Bienvenido a Astro",
-        subtitle: "Un framework rápido para la web",
-        heroText: "Explora el universo con Astro",
-        infoText: "Este sitio está completamente traducido.",
+    pdfImage: {
+      pdfImageDrinks: {
+        alt: 'Dos cócteles en vaso corto con diseño de calavera, uno claro con menta y otro oscuro.'
+      }
     },
-    about: {
-        title: "Acerca de este proyecto",
-        content: "Este sitio es un ejemplo de internacionalización con Astro.",
+    aboutHeader: {
+      titlePart1: 'Mas que solo',
+      titlePart2: 'Comida',
+      subtitle: 'Nuestra Vision',
+      paragraph1: 'Ser un hogar vibrante y acogedor lejos de casa en el corazón de Guatapé. Soñamos con un lugar donde las paredes estén llenas de color, el aire se llene de risas y cada detalle esté hecho con creatividad y corazón.',
+      paragraph2: 'Para nosotros, no se trata solo de servir buena comida y bebidas; se trata de crear momentos de alegría y conexión. Imaginamos un espacio donde los locales se sientan como en familia y los viajeros se sientan cómodos al instante, todos unidos por el amor compartido por los sabores fantásticos, los cócteles únicos y un servicio genuino y amable. Este es nuestro lugar feliz, y estamos muy emocionados de compartirlo contigo.'
+    },
+    aboutStory: {
+      title: '¡Ven y se parte de nuestra historia!',
+      paragraph: "Nuestras puertas están abiertas y nuestro mayor sueño es llenar este espacio lleno de color con tus sonrisas e historias. Hemos construido este lugar para ti, ¡y queremos que formes parte de él!",
+    },
+    aboutMoments: {
+      text: "¡Comparte tus momentos!: ¡Etiquetanos en tus fotos!"
     }
 };

@@ -1,4 +1,4 @@
-import type { SliderContent, TextImage } from "@/types/types"
+import type { SliderContent, TextImage, PDFImage, HeaderAboutImage, StoryAboutImage, MomentsAboutImage } from "@/types/types"
 import BacchanalTop from '@/assets/images/bacchanal-top-slider.webp'
 import BacchanalTopMobile from '@/assets/images/bacchanal-top-slider-mobile.webp';
 import BacchanalSingle from '@/assets/images/single-slider.webp'
@@ -7,6 +7,13 @@ import BacchanalBottom from '@/assets/images/bacchanal-bottom-slider.webp'
 import BacchanalBottomMobile from '@/assets/images/bacchanal-bottom-slider-mobile.webp';
 import Cheers from '@/assets/images/whatdoes.webp';
 import Montain from '@/assets/images/mountain-image.webp';
+import Drinks from '@/assets/images/PDF-viewer-image.webp';
+import DesktopHeader from '@/assets/images/header-about-image-desktop.webp';
+import MobileHeader from '@/assets/images/header-about-image-mobile.webp';
+import GuatapeMoment from '@/assets/images/guatape-moment-bg.webp';
+import DesktopMoments from '@/assets/images/about-moments-desktop.webp';
+import MobileMoments from '@/assets/images/about-moments-mobile.webp';
+
 
 export const topSliderContent: SliderContent =
 {
@@ -83,4 +90,32 @@ export const textImageBacchanalStory: TextImage = {
   title: 'Our Story',
   highlightText: "A Taste of Guatapé's Soul",
   complementInfo: "El Bacchanal isn't just a restaurant—it's a celebration of Guatapé's spirit. Nestled among the town's iconic zocalos (vibrant painted murals), we bring together the bold flavors of Antioquia with a contemporary twist."
+}
+
+export const PdfImage: PDFImage = {
+  id: 'pdfImageDrinks',
+  image: Drinks,
+  width: 280,
+  height: 440,
+  alt: 'A drinks skuuuuullll.'
+}
+
+export const headerAboutImage: HeaderAboutImage = {
+  id: 'hedaerAboutImage',
+  image: DesktopHeader,
+  mobileImage: MobileHeader,
+  alt: 'Image shake.'
+}
+
+export const storyAboutImage: StoryAboutImage = {
+  id: 'storyAboutImage',
+  image: GuatapeMoment,
+  alt: 'Image shake.'
+}
+
+export const momentsAboutImage: MomentsAboutImage = {
+  id: 'hedaerAboutImage',
+  image: DesktopMoments,
+  mobileImage: MobileMoments,
+  alt: 'Image shake.'
 }
