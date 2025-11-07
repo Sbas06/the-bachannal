@@ -25,8 +25,6 @@ const {
 
 // Locale actual
 const currentLang = Astro.currentLocale ?? 'es';
-
-// Upload translations (build-time)
 const translations = import.meta.glob('/src/i18n/*.ts', { eager: true }) as Record<string, any>;
 const messages =
   translations[`/src/i18n/${currentLang}.ts`]?.default
@@ -35,6 +33,7 @@ const messages =
 
 // Determine the effective id to search for translations.
 let effectiveId: string | undefined;
+// (mantén tu lógica existing para encontrar effectiveId)
 if (propId && messages?.slider?.[propId]) {
   effectiveId = propId;
 } else if (content?.id && messages?.slider?.[content.id]) {
@@ -46,6 +45,16 @@ if (propId && messages?.slider?.[propId]) {
 } else {
   effectiveId = undefined;
 }
+
+// --- NUEVO: calcular si hay header que renderizar ---
+const hasHeader = Boolean(
+  content?.titleFollowUs ||
+  content?.titleInstagram ||
+  (effectiveId && (
+    messages?.slider?.[effectiveId]?.titleFollowUs ||
+    messages?.slider?.[effectiveId]?.titleInstagram
+  ))
+);
 
 // Get translated text at the slider level (ex: title Follows/title Instagram)
 const getSliderText = (field: keyof SliderProps) => {
@@ -85,10 +94,9 @@ const getButtonText = () => {
 ---
 
 <section
-  class={`slider-container overflow-hidden flex flex-col justify-center gap-y-11 h-[100dvh] ${variant}`}
+  class={`slider-container overflow-hidden flex flex-col justify-center gap-y-11 ${hasHeader ? 'h-[100dvh]' : 'h-[70dvh]'} ${variant}`}
 >
-  {
-    (content?.titleFollowUs || content?.titleInstagram || (effectiveId && messages?.slider?.[effectiveId])) ? (
+  { hasHeader ? (
       <header class='font-koulen slider-instagram-header pointer-events-none text-center leading-loose text-white'>
         <h1 class='font-koulen title-instagram text-4xl'>{ getSliderText('titleFollowUs') }</h1>
         <p class='title-follow-us text-6xl'>{ getSliderText('titleInstagram') }</p>

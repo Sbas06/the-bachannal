@@ -11,6 +11,8 @@ import FindusSection from '@/components/FindusSection/FindusSection.astro';
 import {
   topSliderContent,
   singleBanner,
+  singleBannerSecond,
+  singleBannerThird,
   bottomSliderContent,
   textImageBacchanalMean,
   textImageBacchanalStory,
@@ -25,14 +27,12 @@ import {
 <Layout>
   <NavBar />
   <SliderBanner
-    isSlider
-    content={topSliderContent}
+    content={singleBannerSecond}
     contentPosition='right'
     imageLoading='eager'
-    paginationPosition='pagLeft'
     id='upper-slider-banner'
   />
-  <TextImage direction='flex-row' content={textImageBacchanalMean} />
+  <TextImage direction='flex-row' content={textImageBacchanalMean} heightVariant="h6"/>
   <SliderImage
     id='instagram-slider-top'
     content={sliderContent}
@@ -61,12 +61,10 @@ import {
     outWeb
   />
   <SliderBanner
-    isSlider
-    content={bottomSliderContent}
+    content={singleBannerThird}
     contentPosition='center'
     isWhitehella
     imageLoading='lazy'
-    paginationPosition='pagRight'
     id='bottom-slider-banner'
   />
   <ColorfulParadise />

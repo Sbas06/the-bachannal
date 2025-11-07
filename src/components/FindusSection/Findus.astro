@@ -5,7 +5,7 @@ import MainIcon from '@/assets/images/bacchanal-icon-image.webp';
 import MapSvg from '@/components/FindusSection/MapSvg.astro';
 import MapSvg2 from '@/components/FindusSection/MapSvg2.astro';
 
-import { paradiseMedia } from '@/lib/utils';
+import { photographsMedia } from '@/lib/utils';
 import '@/components/FindusSection/findUsSection.css';
 
 // Locale actual
@@ -39,14 +39,14 @@ const getSlideAlt = (item: any, index: number) => {
 };
 ---
 
-<section class='relative flex h-[100dvh] items-center justify-center find-us-section'>
+<section class='relative flex h-[80dvh] items-center justify-center find-us-section'>
   <div class="slider-showcase pointer-events-none lg:invisible lg:absolute lg:left-0 lg:-translate-x-full lg:-rotate-12 lg:bg-white bg-white px-3 pt-3 pb-[70px] lg:transition-all lg:duration-500 lg:ease-in-out lg:z-10">
     <div
       class='swiper-findus relative max-h-[465px] max-w-[400px] overflow-hidden'
     >
       <div class='swiper-wrapper'>
         {
-          paradiseMedia.map((item) => (
+          photographsMedia.map((item) => (
             <div class='swiper-slide'>
               <Image src={item.url} width={400} height={465} alt={item.alt} />
             </div>
