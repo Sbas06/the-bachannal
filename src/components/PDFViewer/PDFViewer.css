@@ -122,12 +122,12 @@
    gap: 10px;
    align-self: center;
    overflow: hidden;
-   border: 1px solid white;
-   background: rgba(255, 255, 255, 0.2);
+   border: 1px solid black;
+   background: rgba(245, 226, 67);
    padding: 10px 20px;
    transition: all 0.7s ease-in-out;
    text-decoration: none;
-   color: white;
+   color: black;
    font-weight: 500;
  }
 
