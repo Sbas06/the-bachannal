@@ -10,7 +10,7 @@ import Montain from '@/assets/images/mountain-image.webp';
 import Drinks from '@/assets/images/PDF-viewer-image.webp';
 import DesktopHeader from '@/assets/images/header-about-image-desktop.webp';
 import MobileHeader from '@/assets/images/header-about-image-mobile.webp';
-import GuatapeMoment from '@/assets/images/guatape-moment-bg.webp';
+import BrindisImage from '@/assets/images/brindis-image.webp';
 import DesktopMoments from '@/assets/images/about-moments-desktop.webp';
 import MobileMoments from '@/assets/images/about-moments-mobile.webp';
 
@@ -45,6 +45,22 @@ export const singleBanner: SliderContent =
   image: BacchanalSingle,
   mobileImage: BacchanalSingleMobile,
   alt: 'A festive group of people wearing funny animal masks and posing playfully for the camera.'
+}
+
+export const singleBannerSecond: SliderContent =
+{
+  id: 'bottomSlider',
+  image: BacchanalTop,
+  mobileImage: BacchanalTopMobile,
+  alt: "A vibrant and colorful marquee and neon sign for 'Bacchanal Restaurante & Bar' glowing at night."
+}
+
+export const singleBannerThird: SliderContent =
+{
+  id: 'bottomSlider',
+  image: BacchanalBottom,
+  mobileImage: BacchanalBottomMobile,
+  alt: "A smiling man and woman hugging each other warmly in a candid, black and white photograph."
 }
 
 export const bottomSliderContent: SliderContent =
@@ -109,13 +125,13 @@ export const headerAboutImage: HeaderAboutImage = {
 
 export const storyAboutImage: StoryAboutImage = {
   id: 'storyAboutImage',
-  image: GuatapeMoment,
-  alt: 'Image shake.'
+  image: BrindisImage,
+  alt: 'Image of drink.'
 }
 
 export const momentsAboutImage: MomentsAboutImage = {
   id: 'hedaerAboutImage',
   image: DesktopMoments,
   mobileImage: MobileMoments,
-  alt: 'Image shake.'
+  alt: 'Image from bachannal.'
 }

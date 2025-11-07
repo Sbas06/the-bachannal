@@ -122,7 +122,7 @@ export default {
       paragraph: "En El Bacchanal no solo comes: celebras con todos los sentidos. Nuestra terraza junto al lago ofrece vistas a las aguas de Guatapé, donde cada atardecer pinta el cielo con colores tan vibrantes como nuestros platos."
     },
     colorfulParadise: {
-      title: 'Un paraíso colorido',
+      title: 'Un paraiso colorido',
       images: [
         { alt: 'Una calle empedrada con edificios coloridos bajo un vibrante dosel de paraguas multicolores' },
         { alt: 'Plano cercano de un Boston Terrier con una camiseta roja y un arnés' },

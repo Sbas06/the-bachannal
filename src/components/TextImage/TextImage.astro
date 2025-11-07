@@ -8,10 +8,12 @@ const {
   direction,
   content,
   hasGradient,
+  heightVariant,
 }: {
   direction?: 'flex-row' | 'flex-row-reverse';
   content?: TextImage;
   hasGradient?: boolean;
+  heightVariant?: 'h6' | 'h9';
 } = Astro.props;
 
 const currentLang = Astro.currentLocale ?? 'es';
@@ -36,8 +38,11 @@ const slug = (s?: string) => String(s ?? 'default').replace(/\s+/g, '-').replace
 
 const variantClass = `text-image--${slug(content?.id ?? content?.title ?? 'default')}`;
 
-// combine to pass to Gradient (usa containerClass que ya tienes)
-const gradientContainerClass = `relative flex h-[100dvh] justify-center ${variantClass}`;
+const resolvedHeightClass = 
+   (heightVariant === 'h6' ? 'h-[60dvh]' : 'h-[90dvh]');
+
+// combine to pass to Gradient (use the containerClass you already have)
+const gradientContainerClass = `relative flex ${resolvedHeightClass} justify-center ${variantClass}`;
 ---
 
 <Gradient
